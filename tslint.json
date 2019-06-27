@@ -1,0 +1,27 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "arrow-parens": false,
+    "quotemark": [true, "single"],
+    "interface-name": false,
+    "only-arrow-functions": false,
+    "no-console": false,
+    "no-shadowed-variable": false,
+    "no-unused-expression": false,
+    "no-var-keyword": false,
+    "no-var-requires": false,
+    "object-literal-sort-keys": false,
+    "trailing-comma": false,
+    "variable-name": [true, "allow-leading-underscore"]
+  },
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts"
+    ]
+  }
+ }
