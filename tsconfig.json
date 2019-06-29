@@ -19,7 +19,13 @@
      "baseUrl":"src/",
      "listFiles":false,
      "noEmitHelpers":true,
-     "importHelpers": true
+     "importHelpers": true,
+     "paths": {
+      "*": [
+          "node_modules/*",
+          "src/types/*"
+      ]
+  }
   },
   "include":[
      "src/**/*"

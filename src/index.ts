@@ -1,10 +1,11 @@
-import app from './app';
+import exppress from 'express';
+import {setUpExpress} from './app';
+import {PORT} from './const'
 
-require('dotenv').config();
+export const app: exppress.Express = exppress();
 
+app.listen(PORT, () => {
+    console.log(`Running in the port: ${PORT}`);
+});
 
-app.listen(process.env.PORT, () => {
-    console.log(`Corriendo en el puerto: ${process.env.PORT}`);
-})
-
-export default app;
+setUpExpress(app);
