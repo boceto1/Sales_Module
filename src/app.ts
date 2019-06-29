@@ -1,36 +1,33 @@
 import bodyParser from 'body-parser';
-import express from 'express';
+import { Application } from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
+import R from 'ramda';
 
-require('dotenv').config();
+import {MONGO_URI} from './const';
 
 import api from './routes';
 
-class App {
-
-    public express: express.Application;
-
-    constructor() {
-        this.express = express();
-        this.mongoSetup();
-        this.setMiddlewares();
-        this.setRoutes();
-    }
-
-    private setMiddlewares(): void {
-        this.express.use(bodyParser.urlencoded({extended: false}));
-        this.express.use(bodyParser.json());
-        this.express.use(morgan('dev'));
-    }
-
-    private setRoutes(): void {
-        this.express.use(api);
-    }
-
-    private mongoSetup(): void {
-        mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true}); 
-    }
+export function setUpExpress(app: Application) {
+    setUpMongo();
+    setConfigurations(app);
+    return app;
 }
 
-export default new App().express;
+const setMiddlewares = (app: Application): Application => {
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.json());
+    app.use(morgan('dev'));
+    return app;
+};
+
+const setRoutes = (app: Application): Application =>{
+    app.use(api);
+    return app;
+};
+
+const setConfigurations = R.pipe(setMiddlewares, setRoutes);
+
+const setUpMongo = (): void => {
+    mongoose.connect(MONGO_URI, { useNewUrlParser: true });
+};
