@@ -1,16 +1,17 @@
 export interface Sale {
-    id: string;
     name: string;
     description: string;
+    idSeller: string;
+    idCompany: string;
     phase: string;
     creationDate: string;
     modificationDate: string;
     isClosed: boolean;
-    quotations: [Quotation];
-    tasks: [Task];
-    meetings: [Meeting];
-    communications: [Communication];
-    contract: Contract;
+    quotations?: [Quotation];
+    tasks?: [Task];
+    meetings?: [Meeting];
+    communications?: [Communication];
+    contract?: Contract;
 }
 
 export interface Contract {
@@ -36,9 +37,12 @@ export interface Offer {
 export interface Service {
     idService: number;
     description: string;
-    amount: number;
     unitValue: number;
-    totalValue?: number;
+}
+
+export interface OfferService extends Service {
+    amount: number;
+    totalValue: number;
 }
 
 export interface Discount {

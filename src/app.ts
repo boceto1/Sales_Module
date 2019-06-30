@@ -3,16 +3,14 @@ import { Application } from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import R from 'ramda';
-
 import {MONGO_URI} from './const';
+import {setRoutes} from './routes';
 
-import api from './routes';
-
-export function setUpExpress(app: Application) {
+export const  setUpExpress = (app: Application) => {
     setUpMongo();
     setConfigurations(app);
     return app;
-}
+};
 
 const setMiddlewares = (app: Application): Application => {
     app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,13 +19,9 @@ const setMiddlewares = (app: Application): Application => {
     return app;
 };
 
-const setRoutes = (app: Application): Application =>{
-    app.use(api);
-    return app;
-};
-
-const setConfigurations = R.pipe(setMiddlewares, setRoutes);
+const setConfigurations = R.pipe(setMiddlewares, setRoutes );
 
 const setUpMongo = (): void => {
     mongoose.connect(MONGO_URI, { useNewUrlParser: true });
+    mongoose.set('useCreateIndex', true);
 };

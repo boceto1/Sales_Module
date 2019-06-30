@@ -1,17 +1,6 @@
-import {  model, Schema} from 'mongoose';
+import { Schema} from 'mongoose';
+import { offerServiceSchema } from './Service';
 
-const serviceSchema = new Schema({
-    idService: Number,
-    description : String,
-    amount : Number,
-    unitValue: Number,
-    totalValue: Number
+export const offerSchema = new Schema({
+    services: [offerServiceSchema]
 });
-
-export const SERVICE = model('Service', serviceSchema);
-
-const offerSchema = new Schema({
-    services: [serviceSchema]
-});
-
-export const OFFER = model('Offer', offerSchema);

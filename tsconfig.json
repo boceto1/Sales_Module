@@ -1,38 +1,26 @@
 {
-  "compilerOptions":{
-     "target":"es6",
-     "moduleResolution":"node",
+   "compilerOptions": {
+     "lib": ["es6"],
+     "allowSyntheticDefaultImports": true,
+     "allowJs": true,
+     "alwaysStrict": true,
      "esModuleInterop": true,
-     "module":"commonjs",
-     "declaration":false,
-     "noLib":false,
-     "emitDecoratorMetadata":true,
-     "experimentalDecorators":true,
-     "sourceMap":true,
-     "pretty":true,
-     "allowUnreachableCode":true,
-     "allowUnusedLabels":true,
-     "noImplicitAny":true,
-     "noImplicitReturns":false,
-     "noImplicitUseStrict":false,
-     "outDir":"dist/",
-     "baseUrl":"src/",
-     "listFiles":false,
-     "noEmitHelpers":true,
-     "importHelpers": true,
-     "paths": {
-      "*": [
-          "node_modules/*",
-          "src/types/*"
-      ]
-  }
-  },
-  "include":[
-     "src/**/*"
-  ],
-  "exclude":[
-     "node_modules",
-     "dist"
-  ],
-  "compileOnSave":false
-}
+     "module": "commonjs",
+     "moduleResolution": "node",
+     "noImplicitReturns": true,
+     "noUnusedLocals": true,
+     "noUnusedParameters": true,
+     "resolveJsonModule": true,
+     "experimentalDecorators": true,
+     "emitDecoratorMetadata": true,
+     "strict": false,
+     "noImplicitAny": false,
+     "outDir": "./build/",
+     "preserveConstEnums": true,
+     "removeComments": true,
+     "sourceMap": true,
+     "skipLibCheck": true,
+     "target": "es6"
+   },
+   "exclude": ["./node_modules", "./**/*.spec.ts", "./build/**/*"]
+ }

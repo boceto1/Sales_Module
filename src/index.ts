@@ -1,8 +1,9 @@
-import exppress from 'express';
+import express from 'express';
 import {setUpExpress} from './app';
-import {PORT} from './const'
+import * as CONST from './const';
+const {PORT} = CONST;
 
-export const app: exppress.Express = exppress();
+export const app: express.Express = express();
 
 app.listen(PORT, () => {
     console.log(`Running in the port: ${PORT}`);
