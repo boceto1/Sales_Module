@@ -5,7 +5,7 @@ import {createService,
     findServiceById,
     getAllServices,
     updateServiceById
-} from '../operations/service.operation';
+} from '../operations/DB/service.operation';
 import { Service } from '../types/types';
 
 export const createServiceCtrl = async (req: Request, res: Response ) => {

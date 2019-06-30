@@ -1,6 +1,6 @@
 import { ObjectId } from 'bson';
-import { SERVICE } from '../models/Service';
-import {  Service } from '../types/types';
+import { SERVICE } from '../../models/Service';
+import {  Service } from '../../types/types';
 
 export const createService = async (service: Service): Promise<any> => {
         const createdService = new SERVICE(service);
