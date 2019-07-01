@@ -1,4 +1,5 @@
 import {  model, Schema} from 'mongoose';
+import { quotationSchema as Quotation } from './Quotation';
 
 const saleSchema = new Schema({
     name: {type: String, required: true},
@@ -8,7 +9,8 @@ const saleSchema = new Schema({
     phase: { type: String, default: 'Habilitado para la venta'},
     creationDate: {type: Date, default: Date.now()},
     modificationDate: {type: Date, default: Date.now()},
-    isClosed: { type: Boolean, default: false}
+    isClosed: { type: Boolean, default: false},
+    quotations: {type: [Quotation] , default: []},
     });
 
 export const SALE = model('Sale', saleSchema);

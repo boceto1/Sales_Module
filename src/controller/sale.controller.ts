@@ -14,14 +14,14 @@ export const createServiceCtrl = async (req: Request, res: Response ) => {
 
     try {
         const createdSale = await createSale(idSeller, service);
-        res.status(200).json({createdSale});
+        res.status(201).json({createdSale});
     } catch (error) {
         res.status(500).json({message: 'Problem to create Sale', error});
     }
 };
 
 export const getSaleByIdCtrl = async (req: Request, res: Response)=>{
-    const idSale: ObjectId = req.params.id;
+    const idSale: ObjectId = req.params.idSale;
     try {
         const foundSale = await findSaleById(idSale);
         if (!foundSale) {
@@ -49,7 +49,7 @@ export const getSalesBySellerCtrl = async (req: Request, res: Response) => {
 };
 
 export const deleteSaleByIdCtrl = async (req: Request, res: Response) => {
-    const id: ObjectId = req.params.id;
+    const id: ObjectId = req.params.idSale;
     try {
         const deleteSale = await deleteSaleById(id);
         if (!deleteSale) {

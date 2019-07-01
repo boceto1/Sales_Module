@@ -7,17 +7,17 @@ export interface Sale {
     creationDate: string;
     modificationDate: string;
     isClosed: boolean;
-    quotations?: [Quotation];
-    tasks?: [Task];
-    meetings?: [Meeting];
-    communications?: [Communication];
+    quotations?: Quotation[];
+    tasks?: Task[];
+    meetings?: Meeting[];
+    communications?: Communication[];
     contract?: Contract;
 }
 
 export interface Contract {
     idCompany: string;
     description: string;
-    offers: [Offer];
+    offers: Offer[];
     creationDate: Date;
     total: boolean;
 }
@@ -25,13 +25,14 @@ export interface Contract {
 export interface Quotation {
     idCompany: number;
     description: string;
-    offers: [Offer];
+    offers: Offer [];
     creationDate: Date;
-    total: boolean;
+    isValid: boolean;
 }
 
 export interface Offer {
-    services: [Service];
+    services: OfferService[];
+    total?: number;
 }
 
 export interface Service {
@@ -42,7 +43,7 @@ export interface Service {
 
 export interface OfferService extends Service {
     amount: number;
-    totalValue: number;
+    totalValue?: number;
 }
 
 export interface Discount {
@@ -66,7 +67,7 @@ export interface Meeting {
     topic: string;
     description: string;
     date: Date;
-    assistants: [string];
+    assistants: string [];
     duration: number;
     place: string;
     observation: string;
