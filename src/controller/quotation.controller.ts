@@ -14,7 +14,7 @@ export const createQuotationCtrl = async (req: Request, res: Response): Promise<
         return;
     }
 
-    const calculatedQuotation = calculateTotalAmountQuotation(quotation);
+    const calculatedQuotation = await calculateTotalAmountQuotation(quotation);
     const updatedQuotationSale = createQuotation(sale, calculatedQuotation);
 
     if ( !updatedQuotationSale ) {
@@ -22,8 +22,8 @@ export const createQuotationCtrl = async (req: Request, res: Response): Promise<
         return;
     }
     try {
-        const updatedSale = await updateSale(updatedQuotationSale);
-        res.status(201).json(updatedSale);
+        const updatedSale: Sale = await updateSale(updatedQuotationSale);
+        res.status(201).json(updatedSale.quotations);
         return;
     } catch (error) {
         res.status(400).json({message: 'It\'s not posible add quotation', error});
