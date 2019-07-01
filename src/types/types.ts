@@ -82,5 +82,5 @@ export interface Meeting extends CustomSchema {
 
 export interface Task extends CustomSchema {
     description: string;
-    realizado: boolean;
+    realized: boolean;
 }
