@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "nodemon -r  ./src/index.ts --watch",
-    "prod": "npm run build && node ./dist/index.js",
+    "dev": "nodemon -r  ./src/index.ts --watch",
+    "start": "npm run build && node ./dist/index.js",
     "test": "mocha --require ts-node/register --recursive \" src/test/**/*.ts \""
   },
   "repository": {

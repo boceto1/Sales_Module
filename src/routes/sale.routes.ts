@@ -1,14 +1,19 @@
 import { Router } from 'express';
+import { createQuotationCtrl } from '../controller/quotation.controller';
 import { createServiceCtrl,
+         deleteSaleByIdCtrl,
          getSaleByIdCtrl,
-         getSalesBySellerCtrl
+         getSalesBySellerCtrl,
 } from '../controller/sale.controller';
 
 const apiSale: Router = Router();
 
-apiSale.route('/:id')
+apiSale.route('/:idSale')
             .get(getSaleByIdCtrl)
-            .delete();
+            .delete(deleteSaleByIdCtrl);
+
+apiSale.route('/:idSale/quotation')
+            .post(createQuotationCtrl);
 
 apiSale.route('/seller/:idSeller')
             .get(getSalesBySellerCtrl)

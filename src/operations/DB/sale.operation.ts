@@ -9,8 +9,14 @@ export const createSale = async (idSeller: string , sale: Sale): Promise<any> =>
     return resposeCreatedSale;
 };
 
-export const findSaleById = async (id: ObjectId) => SALE.findById(id);
+export const findSaleById = async (id: ObjectId): Promise<any> => SALE.findById(id);
 
-export const findSalesBySeller = async (idSeller) => SALE.find({idSeller});
+export const findSalesBySeller = async (idSeller): Promise<any> => SALE.find({idSeller});
 
-export const deleteSaleById = async (id: ObjectId) => SALE.findByIdAndDelete(id);
+export const deleteSaleById = async (id: ObjectId): Promise<any> => SALE.findByIdAndDelete(id);
+
+export const updateSale = async (sale: Sale): Promise<any> => {
+    const updateSale = new SALE(sale);
+    const responseUpdatedSale = await updateSale.save();
+    return responseUpdatedSale;
+}

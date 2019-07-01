@@ -13,7 +13,7 @@ export const createServiceCtrl = async (req: Request, res: Response ) => {
 
     try {
         const createdService = await createService(service);
-        res.status(200).json({createdService});
+        res.status(201).json({createdService});
     } catch (error) {
         res.status(500).json({message: 'Problem to create Service', error});
     }
