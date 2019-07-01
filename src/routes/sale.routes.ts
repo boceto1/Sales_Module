@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createQuotationCtrl } from '../controller/quotation.controller';
+import { createQuotationCtrl, getQuotationsBySaleCtrl, getSaleQuotationById } from '../controller/quotation.controller';
 import { createServiceCtrl,
          deleteSaleByIdCtrl,
          getSaleByIdCtrl,
@@ -12,8 +12,12 @@ apiSale.route('/:idSale')
             .get(getSaleByIdCtrl)
             .delete(deleteSaleByIdCtrl);
 
-apiSale.route('/:idSale/quotation')
+apiSale.route('/:idSale/quotations')
+            .get(getQuotationsBySaleCtrl)
             .post(createQuotationCtrl);
+
+apiSale.route('/:idSale/quotations/:idQuotation')
+            .get(getSaleQuotationById);
 
 apiSale.route('/seller/:idSeller')
             .get(getSalesBySellerCtrl)

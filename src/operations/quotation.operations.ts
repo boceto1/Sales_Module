@@ -1,3 +1,4 @@
+import { ObjectId } from 'bson';
 import {  Offer, OfferService, Quotation, Sale, Service  } from '../types/types';
 import { findServiceById } from './DB/service.operation';
 
@@ -24,7 +25,7 @@ export const calculateTotalOffers = async (offers: Offer[]): Promise<Offer[]> =>
     const unsresolverOffers: Array<Promise<Offer>>   = offers.map(calculateTotalAmountOffer);
     const calculatedOffers = await Promise.all(unsresolverOffers);
     return calculatedOffers;
-}
+};
 
 export const calculateTotalAmountOffer = async (offer: Offer): Promise<Offer> => {
     const updateOffer = offer;
@@ -40,11 +41,19 @@ export const calculateTotalServices = async (services: OfferService[]): Promise<
     const unresolvedPromiseServices: Array<Promise<OfferService>> = await services.map(calculateTotalAmountService);
     const updatedServices = await Promise.all(unresolvedPromiseServices);
     return updatedServices;
-}
+};
 
 export const calculateTotalAmountService = async (service: OfferService): Promise<OfferService> =>  {
     const serviceC: Service = await findServiceById(service._id);
     console.log(serviceC);
     service.totalValue = serviceC.unitValue * service.amount;
     return service;
+};
+
+export const findQuotationByID = (id: ObjectId, quotations: Quotation[]): Quotation => {
+
+    const quotation = quotations.filter(quotation => (quotation._id + '') === id + '');
+    if (quotation.length === 0) { return null; }
+    return quotation[0];
+
 };
