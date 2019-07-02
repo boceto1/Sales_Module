@@ -1,13 +1,19 @@
 import { ObjectId } from 'bson';
 import { Request, Response } from 'express';
 import { findSaleById, updateSale } from '../operations/DB/sale.operation';
-import { calculateTotalAmountQuotation, createQuotation, findQuotationByID } from '../operations/quotation.operations';
+import {
+    calculateTotalAmountQuotation,
+    createQuotation,
+    findQuotationByID,
+    sortQuotationByDate,
+    } from '../operations/quotation.operations';
 import { Quotation, Sale } from '../types/types';
 
 export const createQuotationCtrl = async (req: Request, res: Response): Promise<any> => {
     const idSale: ObjectId = req.params.idSale;
     const quotation: Quotation = req.body.quotation;
     const sale: Sale = await findSaleById(idSale);
+
 
     if (!sale) {
         res.status(404).json({message: 'Sale not fount'});
@@ -45,7 +51,9 @@ export const getQuotationsBySaleCtrl = async (req: Request, res: Response) => {
         return;
     }
 
-    res.status(200).json(sale.quotations);
+    const sortQuotation = sortQuotationByDate(sale.quotations);
+
+    res.status(200).json(sortQuotation);
 };
 
 export const getSaleQuotationById = async (req: Request, res: Response) => {

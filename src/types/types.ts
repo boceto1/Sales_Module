@@ -11,8 +11,8 @@ export interface Sale extends CustomSchema {
     idSeller: string;
     idCompany: string;
     phase: string;
-    creationDate: string;
-    modificationDate: string;
+    creationDate: Date;
+    modificationDate: Date;
     isClosed: boolean;
     quotations?: Quotation[];
     tasks?: Task[];

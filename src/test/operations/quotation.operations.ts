@@ -1,14 +1,44 @@
-import { calculateTotalAmountOffer,
-        calculateTotalAmountQuotation,
-        calculateTotalAmountService,
+import { createQuotation, disableLastQuotation
 } from '../../operations/quotation.operations';
 
-import { Offer, OfferService } from '../../types/types';
-import { offer1, offer2, quotation1, quotation2, service1 } from '../util';
+import { quotations1, quotations2, sale1, quotation2 } from '../util';
 
 const assert = require('chai').assert;
 
-describe('calculate total amount of service',()=>{
+describe('disabled Last Quotation ', () => {
+    describe('when I have an array with one quotation', () => {
+        const updatedQuotations = disableLastQuotation(quotations1);
+
+        it('quotation should be false', () => {
+            assert.equal(updatedQuotations.every(
+                quotation => quotation.isValid === false),
+            true);
+        });
+    });
+
+    describe('when I have an array with one quotation', () => {
+        const updatedQuotations = disableLastQuotation(quotations2);
+        it('quotation should be false', () => {
+            assert.equal(updatedQuotations.every(
+                quotation => quotation.isValid === false),
+            true);
+        });
+    });
+});
+
+describe('create Quotation ', () => {
+    describe('When we have a sale and add a quotation', () => {
+        const updatedSale = createQuotation(sale1, quotation2);
+        it('sale should have just one validQuotation', () => {
+            assert( updatedSale.quotations.filter(
+                quotation => quotation.isValid === true).length,
+            1);
+        });
+    });
+});
+
+
+/*describe('calculate total amount of service',()=>{
     describe('When we have a service {amount:12,unitValue:1.5 }', () => {
         const calculatedService = calculateTotalAmountService(service1);
         it('service should be property total value', () => {
@@ -122,3 +152,4 @@ describe('calculate values in quotations', () => {
         });
     });
 });
+*/

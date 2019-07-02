@@ -1,4 +1,4 @@
-import { OfferService, Offer, Quotation } from "../types/types";
+import { Offer, OfferService, Quotation, Sale } from "../types/types";
 
 export const service1: OfferService = {
     idService: 1,
@@ -45,4 +45,27 @@ export const quotation3: Quotation = {
     offers: [offer1, offer2, offer3],
     creationDate: new Date('12-12-12'),
     isValid: true,
+};
+
+export const disabledQuotation1: Quotation = {
+    idCompany: 1,
+    description: 'quotation1',
+    offers: [offer1, offer2, offer3],
+    creationDate: new Date('12-12-12'),
+    isValid: false,
+};
+
+export const quotations1: Quotation[] = [ quotation1 ];
+export const quotations2: Quotation[] = [ quotation1 , disabledQuotation1 ];
+
+export const sale1: Sale = {
+    name: 'test',
+    description: 'test 1',
+    idSeller: '1',
+    idCompany: '1',
+    phase: 'Habilitado para la venta',
+    creationDate: new Date('12-12-12'),
+    modificationDate: new Date('13-12-12'),
+    isClosed: false,
+    quotations: quotations1
 };
