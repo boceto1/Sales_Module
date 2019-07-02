@@ -1,7 +1,7 @@
-import { createQuotation, disableLastQuotation
+import { createQuotation, disableLastQuotation, getLastQuotation, isAbleToAcceptQuotation, validateQuotation
 } from '../../operations/quotation.operations';
 
-import { quotations1, quotations2, sale1, quotation2 } from '../util';
+import { quotation1, quotation2, quotations1, quotations2, quotationWithOutOffers, sale1 } from '../util';
 
 const assert = require('chai').assert;
 
@@ -37,6 +37,51 @@ describe('create Quotation ', () => {
     });
 });
 
+describe.only('get last Quotation ', () => {
+    describe('When I has a sale with one quotaion', () => {
+        it('isValid property to quotation equal true', ( ) => {
+            assert.equal(getLastQuotation(sale1.quotations).isValid, true);
+        });
+    });
+    describe('When I has a sale without quotations ', () => {
+        it('quotation is undefinded', ( ) => {
+            assert.equal(getLastQuotation([]), undefined);
+        });
+    });
+    describe('When I has a sale with 2 quotations', () => {
+        it('quotation is undefinded', ( ) => {
+            console.log([quotation1, quotationWithOutOffers]);
+            assert.equal(getLastQuotation(quotations2).isValid, true);
+        });
+    });
+});
+
+describe('Quotation is able to accept ', () => {
+    describe('When I have a quotation without offers', () => {
+        it('isValid property to quotation equal undefinded', ( ) => {
+            assert.equal(isAbleToAcceptQuotation(quotationWithOutOffers), false);
+        });
+    });
+
+    describe('When I have a quotation with 1 offer', () => {
+        it('isValid property to quotation equal true', ( ) => {
+            assert.equal(isAbleToAcceptQuotation(quotation1), true);
+        });
+    });
+    describe('When I have a quotation with 2 offer', () => {
+        it('isValid property to quotation equal false', ( ) => {
+            assert.equal(isAbleToAcceptQuotation(quotation2), false);
+        });
+    });
+});
+
+describe('validate Quotation to create contract', () => {
+    describe('When quotation has one offer', () => {
+        it('result to be true', ( ) => {
+            assert.equal(validateQuotation(quotations2), true);
+        });
+    });
+});
 
 /*describe('calculate total amount of service',()=>{
     describe('When we have a service {amount:12,unitValue:1.5 }', () => {

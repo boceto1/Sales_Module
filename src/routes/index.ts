@@ -1,9 +1,9 @@
 import {Application } from 'express';
+import {communicationRoute} from './communication.routes';
+import {meetingRoute} from './meeting.routes';
 import {saleRoute} from './sale.routes';
 import {serviceRoute} from './service.routes';
 import {taskRoute} from './task.routes';
-import {communicationRoute} from './communication.routes';
-import {meetingRoute} from './meeting.routes';
 
 export const setRoutes = (app: Application ): Application => {
     app.use('/services', serviceRoute);

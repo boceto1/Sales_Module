@@ -19,6 +19,9 @@ apiSale.route('/:idSale/quotations')
 apiSale.route('/:idSale/quotations/:idQuotation')
             .get(getSaleQuotationById);
 
+apiSale.route('/:idSale/acceptedQuotations/:idQuotation')
+            .get();
+
 apiSale.route('/seller/:idSeller')
             .get(getSalesBySellerCtrl)
             .post(createServiceCtrl);

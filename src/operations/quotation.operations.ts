@@ -64,10 +64,15 @@ export const sortQuotationByDate = (quotations: Quotation[]): Quotation[] =>
         return 0;
 });
 
-export const getLastQuotation = ( quotations: Quotation[]): Quotation =>{
-    const  sortedQuotations = sortQuotationByDate(quotations);
-    return sortedQuotations[0];
+export const getLastQuotation = ( quotations: Quotation[]): Quotation => {
+    console.log(quotations);
+    return R.find(R.propEq('isValid', true))(quotations);
 };
+
+const isAbleOffer = ( offers: Offer[]): boolean => offers.length === 1;
+
+export const isAbleToAcceptQuotation = (quotation: Quotation): boolean =>
+                                R.propSatisfies(isAbleOffer, 'offers', quotation);
 
 const disableQuotation = (quotation: Quotation): Quotation => {
     quotation.isValid = false;
@@ -79,3 +84,5 @@ export const disableLastQuotation = (quotations: Quotation[]): Quotation[] => {
     const updatedQuotations = R.adjust(indexLastQuotation, disableQuotation, quotations);
     return updatedQuotations;
 };
+
+export const validateQuotation =  R.pipe(getLastQuotation, isAbleToAcceptQuotation);

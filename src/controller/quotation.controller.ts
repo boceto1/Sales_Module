@@ -6,6 +6,7 @@ import {
     createQuotation,
     findQuotationByID,
     sortQuotationByDate,
+//    validateQuotation,
     } from '../operations/quotation.operations';
 import { Quotation, Sale } from '../types/types';
 
@@ -13,7 +14,6 @@ export const createQuotationCtrl = async (req: Request, res: Response): Promise<
     const idSale: ObjectId = req.params.idSale;
     const quotation: Quotation = req.body.quotation;
     const sale: Sale = await findSaleById(idSale);
-
 
     if (!sale) {
         res.status(404).json({message: 'Sale not fount'});
@@ -57,6 +57,7 @@ export const getQuotationsBySaleCtrl = async (req: Request, res: Response) => {
 };
 
 export const getSaleQuotationById = async (req: Request, res: Response) => {
+    /* refactor code using middleware */
     const idSale: ObjectId = req.params.idSale;
     const idQuotation: ObjectId = req.params.idQuotation;
 
@@ -80,4 +81,24 @@ export const getSaleQuotationById = async (req: Request, res: Response) => {
     };
 
     res.status(200).json(quotation);
+}
+
+export const acceptQuotation = async (req: Request, res: Response) => {
+    const idSale: ObjectId = req.params.idSale;
+
+    const sale: Sale = await findSaleById(idSale);
+
+    if (!sale) {
+        res.status(404).json({message: 'Sale not fount'});
+        return;
+    }
+
+    if ( sale.quotations.length === 0) {
+        res.status(404).json({message: 'Sale hasn\'t quotations '});
+        return;
+    }
+
+    // const lastQuotation = validateQuotation(sale.quotations);
+
+
 }
