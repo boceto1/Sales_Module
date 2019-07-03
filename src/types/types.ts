@@ -24,9 +24,9 @@ export interface Sale extends CustomSchema {
 export interface Contract extends CustomSchema {
     idCompany: string;
     description: string;
-    offers: Offer[];
+    offer: Offer;
     creationDate: Date;
-    total: boolean;
+    total: number;
 }
 
 export interface Quotation extends CustomSchema{

@@ -1,12 +1,13 @@
 import { ObjectId } from 'bson';
 import { Request, Response } from 'express';
-import { findSaleById, updateSale } from '../operations/DB/sale.operation';
+import { findSaleById, updateSale, updateSaleByID } from '../operations/DB/sale.operation';
 import {
     calculateTotalAmountQuotation,
     createQuotation,
     findQuotationByID,
     sortQuotationByDate,
-//    validateQuotation,
+    validateQuotation,
+    acceptQuotation,
     } from '../operations/quotation.operations';
 import { Quotation, Sale } from '../types/types';
 
@@ -83,7 +84,7 @@ export const getSaleQuotationById = async (req: Request, res: Response) => {
     res.status(200).json(quotation);
 }
 
-export const acceptQuotation = async (req: Request, res: Response) => {
+export const acceptQuotationCtrl = async (req: Request, res: Response) => {
     const idSale: ObjectId = req.params.idSale;
 
     const sale: Sale = await findSaleById(idSale);
@@ -98,7 +99,19 @@ export const acceptQuotation = async (req: Request, res: Response) => {
         return;
     }
 
-    // const lastQuotation = validateQuotation(sale.quotations);
+    if(!validateQuotation(sale.quotations)){
+        res.status(400).json({message: 'It\'s no posible to accept quotation'});
+        return;
+    };
 
+      const accepetedSale:Sale = acceptQuotation(sale);
+      console.log(accepetedSale);
+      const updatedSale:Sale = await updateSaleByID(accepetedSale._id,accepetedSale);
 
+      if(!updatedSale){
+        res.status(400).json({message: 'It\'s no posible to save new Sale'});
+        return;
+      }
+
+      res.status(200).json({updatedSale});
 }

@@ -1,7 +1,7 @@
 import { Schema} from 'mongoose';
 import { offerServiceSchema as OfferService } from './Service';
 
-const offerSchema = new Schema({
+export const offerSchema = new Schema({
     services: [OfferService],
     total: Number,
 });

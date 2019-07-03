@@ -18,7 +18,7 @@ export const service3: OfferService = {
     unitValue: 5,
     amount: 10};
 
-export const offer1: Offer = {services: [ service1 ]};
+export const offer1: Offer = {services: [  service1 ]};
 export const offer2: Offer = {services: [ service1, service2 ]};
 export const offer3: Offer = {services: [ service1, service2, service3 ]};
 

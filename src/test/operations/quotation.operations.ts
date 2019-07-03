@@ -1,13 +1,13 @@
 import { createQuotation, disableLastQuotation, getLastQuotation, isAbleToAcceptQuotation, validateQuotation
 } from '../../operations/quotation.operations';
 
-import { quotation1, quotation2, quotations1, quotations2, quotationWithOutOffers, sale1 } from '../util';
+import { quotation1, quotation2, quotations1, quotations2, quotationWithOutOffers, sale1, sale2 } from '../util';
 
 const assert = require('chai').assert;
 
 describe('disabled Last Quotation ', () => {
     describe('when I have an array with one quotation', () => {
-        const updatedQuotations = disableLastQuotation(quotations1);
+        const updatedQuotations = disableLastQuotation(quotations1.concat());
 
         it('quotation should be false', () => {
             assert.equal(updatedQuotations.every(
@@ -17,7 +17,7 @@ describe('disabled Last Quotation ', () => {
     });
 
     describe('when I have an array with one quotation', () => {
-        const updatedQuotations = disableLastQuotation(quotations2);
+        const updatedQuotations = disableLastQuotation(quotations2.concat());
         it('quotation should be false', () => {
             assert.equal(updatedQuotations.every(
                 quotation => quotation.isValid === false),
@@ -37,10 +37,10 @@ describe('create Quotation ', () => {
     });
 });
 
-describe.only('get last Quotation ', () => {
+describe('get last Quotation ', () => {
     describe('When I has a sale with one quotaion', () => {
         it('isValid property to quotation equal true', ( ) => {
-            assert.equal(getLastQuotation(sale1.quotations).isValid, true);
+            assert.equal(getLastQuotation(sale1.quotations.concat()).isValid, true);
         });
     });
     describe('When I has a sale without quotations ', () => {
@@ -50,8 +50,7 @@ describe.only('get last Quotation ', () => {
     });
     describe('When I has a sale with 2 quotations', () => {
         it('quotation is undefinded', ( ) => {
-            console.log([quotation1, quotationWithOutOffers]);
-            assert.equal(getLastQuotation(quotations2).isValid, true);
+            assert.equal(getLastQuotation(sale2.quotations.concat()).isValid, true);
         });
     });
 });

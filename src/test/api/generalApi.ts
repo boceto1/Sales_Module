@@ -1,12 +1,12 @@
-import chai from 'chai';
-import chaiHttp from 'chai-http';
-import {app} from '../../index';
+//import chai from 'chai';
+//import chaiHttp from 'chai-http';
+//import {app} from '../../index';
 
 // Configure chai
-chai.use(chaiHttp);
-chai.should();
+// chai.use(chaiHttp);
+// chai.should();
 
-describe.skip('Status service', () => {
+/*describe.skip('Status service', () => {
     describe('GET /test', () => {
         it('should get status code 200 and status UP SERVICE', (done) => {
              chai.request(app)
@@ -18,4 +18,4 @@ describe.skip('Status service', () => {
                   });
          });
     }); 
-}); 
+}); */

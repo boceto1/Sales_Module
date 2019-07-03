@@ -1,6 +1,6 @@
 import { ObjectId } from 'bson';
 import R from 'ramda';
-import {  Offer, OfferService, Quotation, Sale, Service  } from '../types/types';
+import {  Offer, OfferService, Quotation, Sale, Service, Contract  } from '../types/types';
 import { findServiceById } from './DB/service.operation';
 
 export const createQuotation = (sale: Sale, quotation: Quotation ): Sale => {
@@ -65,7 +65,6 @@ export const sortQuotationByDate = (quotations: Quotation[]): Quotation[] =>
 });
 
 export const getLastQuotation = ( quotations: Quotation[]): Quotation => {
-    console.log(quotations);
     return R.find(R.propEq('isValid', true))(quotations);
 };
 
@@ -86,3 +85,20 @@ export const disableLastQuotation = (quotations: Quotation[]): Quotation[] => {
 };
 
 export const validateQuotation =  R.pipe(getLastQuotation, isAbleToAcceptQuotation);
+
+const createContrat = (idCompany:string, description:string ,quotation: Quotation): Contract =>(
+        {
+            idCompany,
+            creationDate: new Date(),
+            description,
+            offer: quotation.offers[0],
+            total: quotation.offers[0].total
+        }
+)
+
+export const acceptQuotation = ( sale : Sale ): Sale => {
+    const quotation = getLastQuotation(sale.quotations);
+    sale.quotations = disableLastQuotation(sale.quotations);
+    sale.contract = createContrat(sale.idCompany,sale.description,quotation);
+    return sale;
+} 

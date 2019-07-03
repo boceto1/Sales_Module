@@ -20,3 +20,6 @@ export const updateSale = async (sale: Sale): Promise<any> => {
     const responseUpdatedSale = await updateSale.save();
     return responseUpdatedSale;
 }
+
+export const updateSaleByID = async (id: ObjectId, updatedSale:Sale): Promise<any> =>
+                                 SALE.findByIdAndUpdate(id,updatedSale,{new:true})
