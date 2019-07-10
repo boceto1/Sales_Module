@@ -6,7 +6,8 @@ import {createCommunication,
     getAllCommunications,
     updateCommunicationById
 } from '../operations/DB/communication.operation';
-import { Communication } from '../types/types';
+import { findSaleById, updateSaleByID } from '../operations/DB/sale.operation';
+import { Communication, Sale } from '../types/types';
 
 export const createCommunicationCtrl = async (req: Request, res: Response ) => {
     const communication: Communication = req.body.communication;
@@ -73,5 +74,27 @@ export const deleteCommunicationByIdCtrl = async (req: Request, res: Response) =
         res.status(200).json({deletedCommunication});
     } catch (error) {
         res.status(500).json({message: 'Problem to find by Idt the communication', error});
+    }
+};
+export const createCommunicationBySale = async (req: Request, res: Response) => {
+    const idSale: ObjectId = req.params.idSale;
+    const communication: Communication = req.body.communication;
+
+    try {
+        const foundSale: Sale = await findSaleById(idSale);
+        if (!foundSale) {
+            res.status(404).json({message: 'Sale not found'});
+            return;
+        }
+
+        communication.idSale = foundSale._id;
+        const newCommunication = await createCommunication(communication);
+
+        foundSale.communications.push(newCommunication.id);
+        const updatedSale = await updateSaleByID(foundSale._id, foundSale);
+
+        res.status(200).json({updatedSale});
+    } catch (error) {
+        res.status(500).json({message: 'Problem to find Sale', error});
     }
 };
