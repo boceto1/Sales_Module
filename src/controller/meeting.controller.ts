@@ -6,7 +6,8 @@ import {createMeeting,
     getAllMeetings,
     updateMeetingById
 } from '../operations/DB/meeting.operation';
-import { Meeting } from '../types/types';
+import { findSaleById, updateSaleByID } from '../operations/DB/sale.operation';
+import { Meeting, Sale } from '../types/types';
 
 export const createMeetingCtrl = async (req: Request, res: Response ) => {
     const meeting: Meeting = req.body.meeting;
@@ -45,13 +46,13 @@ export const findAllMeetingsCtrl = async (_req: Request, res: Response) => {
     } catch (error) {
         res.status(500).json({message: 'Problem to find by Idt the meeting', error});
     }
-}
+};
 
 export const updateMeetingByIdCtrl = async (req: Request, res: Response) => {
     const id: ObjectId = req.params.id;
     const meeting: Meeting = req.body.meeting;
     try {
-        const updatedMeeting = await updateMeetingById(id,meeting);
+        const updatedMeeting = await updateMeetingById(id, meeting);
         if ( !updatedMeeting ) {
             res.status(404).json({message: 'Meetings not found'});
             return;
@@ -60,7 +61,7 @@ export const updateMeetingByIdCtrl = async (req: Request, res: Response) => {
     } catch (error) {
         res.status(500).json({message: 'Problem to find by Idt the meeting', error});
     }
-}
+};
 
 export const deleteMeetingByIdCtrl = async (req: Request, res: Response) => {
     const id: ObjectId = req.params.id;
@@ -73,5 +74,30 @@ export const deleteMeetingByIdCtrl = async (req: Request, res: Response) => {
         res.status(200).json({deletedMeeting});
     } catch (error) {
         res.status(500).json({message: 'Problem to find by Idt the meeting', error});
+    }
+};
+
+export const createMeetingBySale = async (req: Request, res: Response) => {
+    const idSale: ObjectId = req.params.idSale;
+    const meeting: Meeting = req.body.meeting;
+
+    try {
+        const foundSale: Sale = await findSaleById(idSale);
+
+        if (!foundSale) {
+            res.status(404).json({message: 'Sale not found'});
+            return;
+        }
+
+        meeting.idSale = foundSale._id;
+        const newMeeting = await createMeeting(meeting);
+        console.log(meeting);
+
+        foundSale.meetings.push(newMeeting.id);
+        const updatedSale = await updateSaleByID(foundSale._id, foundSale);
+
+        res.status(200).json({updatedSale});
+    } catch (error) {
+        res.status(500).json({message: 'Problem to find Sale', error});
     }
 };

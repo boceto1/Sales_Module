@@ -8,7 +8,7 @@ import {
     sortQuotationByDate,
     validateQuotation,
     acceptQuotation,
-    } from '../operations/quotation.operations';
+} from '../operations/quotation.operations';
 import { Quotation, Sale } from '../types/types';
 
 export const createQuotationCtrl = async (req: Request, res: Response): Promise<any> => {
@@ -17,15 +17,15 @@ export const createQuotationCtrl = async (req: Request, res: Response): Promise<
     const sale: Sale = await findSaleById(idSale);
 
     if (!sale) {
-        res.status(404).json({message: 'Sale not fount'});
+        res.status(404).json({ message: 'Sale not fount' });
         return;
     }
 
     const calculatedQuotation: Quotation = await calculateTotalAmountQuotation(quotation);
     const updatedQuotationSale: Sale = createQuotation(sale, calculatedQuotation);
 
-    if ( !updatedQuotationSale ) {
-        res.status(400).json({message: 'It\'s not posible add quotation'});
+    if (!updatedQuotationSale) {
+        res.status(400).json({ message: 'It\'s not posible add quotation' });
         return;
     }
     try {
@@ -33,7 +33,7 @@ export const createQuotationCtrl = async (req: Request, res: Response): Promise<
         res.status(201).json(updatedSale.quotations);
         return;
     } catch (error) {
-        res.status(400).json({message: 'It\'s not posible add quotation', error});
+        res.status(400).json({ message: 'It\'s not posible add quotation', error });
         return;
     }
 };
@@ -43,12 +43,12 @@ export const getQuotationsBySaleCtrl = async (req: Request, res: Response) => {
     const sale: Sale = await findSaleById(idSale);
 
     if (!sale) {
-        res.status(404).json({message: 'Sale not fount'});
+        res.status(404).json({ message: 'Sale not fount' });
         return;
     }
 
-    if ( sale.quotations.length === 0) {
-        res.status(404).json({message: 'Sale hasn\'t quotations '});
+    if (sale.quotations.length === 0) {
+        res.status(404).json({ message: 'Sale hasn\'t quotations ' });
         return;
     }
 
@@ -65,24 +65,24 @@ export const getSaleQuotationById = async (req: Request, res: Response) => {
     const sale: Sale = await findSaleById(idSale);
 
     if (!sale) {
-        res.status(404).json({message: 'Sale not fount'});
+        res.status(404).json({ message: 'Sale not fount' });
         return;
     }
 
-    if ( sale.quotations.length === 0) {
-        res.status(404).json({message: 'Sale hasn\'t quotations '});
+    if (sale.quotations.length === 0) {
+        res.status(404).json({ message: 'Sale hasn\'t quotations ' });
         return;
     }
 
     const quotation: Quotation = findQuotationByID(idQuotation, sale.quotations);
 
-    if ( !quotation ) {
-        res.status(404).json({message: 'Quotation not found '});
+    if (!quotation) {
+        res.status(404).json({ message: 'Quotation not found ' });
         return;
-    };
+    }
 
     res.status(200).json(quotation);
-}
+};
 
 export const acceptQuotationCtrl = async (req: Request, res: Response) => {
     const idSale: ObjectId = req.params.idSale;
@@ -90,28 +90,28 @@ export const acceptQuotationCtrl = async (req: Request, res: Response) => {
     const sale: Sale = await findSaleById(idSale);
 
     if (!sale) {
-        res.status(404).json({message: 'Sale not fount'});
+        res.status(404).json({ message: 'Sale not fount' });
         return;
     }
 
-    if ( sale.quotations.length === 0) {
-        res.status(404).json({message: 'Sale hasn\'t quotations '});
+    if (sale.quotations.length === 0) {
+        res.status(404).json({ message: 'Sale hasn\'t quotations ' });
         return;
     }
 
-    if(!validateQuotation(sale.quotations)){
-        res.status(400).json({message: 'It\'s no posible to accept quotation'});
+    if (!validateQuotation(sale.quotations)) {
+        res.status(400).json({ message: 'It\'s no posible to accept quotation' });
         return;
-    };
+    }
 
-      const accepetedSale:Sale = acceptQuotation(sale);
-      console.log(accepetedSale);
-      const updatedSale:Sale = await updateSaleByID(accepetedSale._id,accepetedSale);
+    const accepetedSale: Sale = acceptQuotation(sale);
+    console.log(accepetedSale);
+    const updatedSale: Sale = await updateSaleByID(accepetedSale._id, accepetedSale);
 
-      if(!updatedSale){
-        res.status(400).json({message: 'It\'s no posible to save new Sale'});
+    if (!updatedSale) {
+        res.status(400).json({ message: 'It\'s no posible to save new Sale' });
         return;
-      }
+    }
 
-      res.status(200).json({updatedSale});
-}
+    res.status(200).json({ updatedSale });
+};

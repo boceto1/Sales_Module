@@ -86,7 +86,7 @@ export const disableLastQuotation = (quotations: Quotation[]): Quotation[] => {
 
 export const validateQuotation =  R.pipe(getLastQuotation, isAbleToAcceptQuotation);
 
-const createContrat = (idCompany:string, description:string ,quotation: Quotation): Contract =>(
+const createContrat = (idCompany: string, description: string , quotation: Quotation): Contract =>(
         {
             idCompany,
             creationDate: new Date(),
@@ -94,11 +94,11 @@ const createContrat = (idCompany:string, description:string ,quotation: Quotatio
             offer: quotation.offers[0],
             total: quotation.offers[0].total
         }
-)
+);
 
 export const acceptQuotation = ( sale : Sale ): Sale => {
     const quotation = getLastQuotation(sale.quotations);
     sale.quotations = disableLastQuotation(sale.quotations);
     sale.contract = createContrat(sale.idCompany,sale.description,quotation);
     return sale;
-} 
+};

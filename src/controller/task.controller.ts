@@ -6,7 +6,10 @@ import {createTask,
     getAllTasks,
     updateTaskById
 } from '../operations/DB/task.operation';
-import { Task } from '../types/types';
+
+import { findSaleById, updateSaleByID } from '../operations/DB/sale.operation';
+
+import { Sale, Task } from '../types/types';
 
 export const createTaskCtrl = async (req: Request, res: Response ) => {
     const task: Task = req.body.task;
@@ -45,13 +48,13 @@ export const findAllTasksCtrl = async (_req: Request, res: Response) => {
     } catch (error) {
         res.status(500).json({message: 'Problem to find by Idt the task', error});
     }
-}
+};
 
 export const updateTaskByIdCtrl = async (req: Request, res: Response) => {
     const id: ObjectId = req.params.id;
     const task: Task = req.body.task;
     try {
-        const updatedTask = await updateTaskById(id,task);
+        const updatedTask = await updateTaskById(id, task);
         if ( !updatedTask ) {
             res.status(404).json({message: 'Tasks not found'});
             return;
@@ -60,7 +63,7 @@ export const updateTaskByIdCtrl = async (req: Request, res: Response) => {
     } catch (error) {
         res.status(500).json({message: 'Problem to find by Idt the task', error});
     }
-}
+};
 
 export const deleteTaskByIdCtrl = async (req: Request, res: Response) => {
     const id: ObjectId = req.params.id;
@@ -73,5 +76,28 @@ export const deleteTaskByIdCtrl = async (req: Request, res: Response) => {
         res.status(200).json({deletedTask});
     } catch (error) {
         res.status(500).json({message: 'Problem to find by Idt the task', error});
+    }
+};
+
+export const createTaskBySale = async (req: Request, res: Response) => {
+    const idSale: ObjectId = req.params.idSale;
+    const task: Task = req.body.task;
+
+    try {
+        const foundSale: Sale = await findSaleById(idSale);
+        if (!foundSale) {
+            res.status(404).json({message: 'Sale not found'});
+            return;
+        }
+
+        task.idSale = foundSale._id;
+        const newTask = await createTask(task);
+
+        foundSale.tasks.push(newTask.id);
+        const updatedSale = await updateSaleByID(foundSale._id, foundSale);
+
+        res.status(200).json({updatedSale});
+    } catch (error) {
+        res.status(500).json({message: 'Problem to find Sale', error});
     }
 };

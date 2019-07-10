@@ -22,7 +22,6 @@ export const offer1: Offer = {services: [  service1 ]};
 export const offer2: Offer = {services: [ service1, service2 ]};
 export const offer3: Offer = {services: [ service1, service2, service3 ]};
 
-
 export const quotation1: Quotation = {
     idCompany: 1,
     description: 'quotation1',

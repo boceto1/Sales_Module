@@ -1,6 +1,8 @@
+import { ObjectId } from 'bson';
 import {  model, Schema} from 'mongoose';
 
 const communicationSchema = new Schema({
+    idSale: { type: ObjectId, required: true},
     description: {type: String, required: true},
     subjet: {type: String, required: true},
     phoneNumber: {type: String, required: true},

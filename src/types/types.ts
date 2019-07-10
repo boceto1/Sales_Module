@@ -15,9 +15,9 @@ export interface Sale extends CustomSchema {
     modificationDate: Date;
     isClosed: boolean;
     quotations?: Quotation[];
-    tasks?: Task[];
-    meetings?: Meeting[];
-    communications?: Communication[];
+    tasks?: ObjectId[];
+    meetings?: ObjectId[];
+    communications?: ObjectId[];
     contract?: Contract;
 }
 
@@ -60,27 +60,30 @@ export interface Discount extends CustomSchema{
 }
 
 export interface Communication extends CustomSchema {
+    idSale: ObjectId;
     description: string;
     subjet: string;
     phoneNumber: string;
     date: Date;
     email: string;
     type: string;
-    observation: string;
+    observation?: string;
     state: string;
 }
 
 export interface Meeting extends CustomSchema {
+    idSale: ObjectId;
     topic: string;
     description: string;
     date: Date;
     assistants: string [];
     duration: number;
     place: string;
-    observation: string;
+    observation?: string;
 }
 
 export interface Task extends CustomSchema {
+    idSale: ObjectId;
     description: string;
     realized: boolean;
 }

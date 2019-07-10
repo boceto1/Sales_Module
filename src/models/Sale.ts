@@ -1,5 +1,5 @@
 import {  model, Schema} from 'mongoose';
-import { quotationSchema as Quotation, offerSchema as Offer } from './Quotation';
+import { offerSchema as Offer, quotationSchema as Quotation } from './Quotation';
 
 const contractSchema = new Schema({
     idCompany: {type: String, required: true},
@@ -19,7 +19,8 @@ const saleSchema = new Schema({
     modificationDate: {type: Date, default: Date.now()},
     isClosed: { type: Boolean, default: false},
     quotations: {type: [Quotation] , default: []},
-    contract: {type: contractSchema}
+    contract: {type: contractSchema},
+    tasks: [{type: Schema.Types.ObjectId, ref: 'Task'}]
     });
 
 export const SALE = model('Sale', saleSchema);
