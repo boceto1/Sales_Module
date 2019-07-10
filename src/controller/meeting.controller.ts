@@ -91,7 +91,6 @@ export const createMeetingBySale = async (req: Request, res: Response) => {
 
         meeting.idSale = foundSale._id;
         const newMeeting = await createMeeting(meeting);
-        console.log(meeting);
 
         foundSale.meetings.push(newMeeting.id);
         const updatedSale = await updateSaleByID(foundSale._id, foundSale);

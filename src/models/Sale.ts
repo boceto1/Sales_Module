@@ -20,7 +20,8 @@ const saleSchema = new Schema({
     isClosed: { type: Boolean, default: false},
     quotations: {type: [Quotation] , default: []},
     contract: {type: contractSchema},
-    tasks: [{type: Schema.Types.ObjectId, ref: 'Task'}]
+    tasks: [{type: Schema.Types.ObjectId, ref: 'Task'}],
+    meetings: [{type: Schema.Types.ObjectId, ref: 'Meeting'}],
     });
 
 export const SALE = model('Sale', saleSchema);

@@ -105,7 +105,6 @@ export const acceptQuotationCtrl = async (req: Request, res: Response) => {
     }
 
     const accepetedSale: Sale = acceptQuotation(sale);
-    console.log(accepetedSale);
     const updatedSale: Sale = await updateSaleByID(accepetedSale._id, accepetedSale);
 
     if (!updatedSale) {
