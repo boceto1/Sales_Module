@@ -7,7 +7,8 @@ describe.only('Create email ', () => {
         from: 'ventasarquitectura2019@gmail.com',
         to: 'janka.obando@gmail.com',
         subject : 'Test',
-        html: '<h1>Test 1 1</h1>'
+        html: '<h1>Test 1 1</h1>',
+        attachments: 'C:/Users/crist/Documents/EjemploKarlita.pdf',
     }
         it('email sends correctly', () => {
             createMailCtrl(email);

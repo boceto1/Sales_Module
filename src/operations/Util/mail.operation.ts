@@ -7,7 +7,12 @@ export const createMailCtrl =  (email : Mail) => {
         from: email.from,
         to: email.to,
         subject: email.subject,
-        html: email.html
+        html: email.html,
+        attachments: [{
+            filename: 'file.pdf',
+            path: email.attachments,
+            contentType: 'application/pdf'
+          }],
     };
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
