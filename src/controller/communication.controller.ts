@@ -76,6 +76,7 @@ export const deleteCommunicationByIdCtrl = async (req: Request, res: Response) =
         res.status(500).json({message: 'Problem to find by Idt the communication', error});
     }
 };
+
 export const createCommunicationBySale = async (req: Request, res: Response) => {
     const idSale: ObjectId = req.params.idSale;
     const communication: Communication = req.body.communication;
