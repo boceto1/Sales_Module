@@ -10,7 +10,7 @@ export const createCommunication = async (communication: Communication): Promise
 
 export const findCommunicationById = async (id: ObjectId): Promise<any> => COMMUNICATION.findById(id);
 
-export const getAllCommunications = async (): Promise<any> => COMMUNICATION.find();
+export const getAllCommunications = async (type1: String): Promise<any> => COMMUNICATION.find( { type: type1 });
 
 export const updateCommunicationById = async (id: ObjectId, communication: Communication): Promise<any> =>
                                         COMMUNICATION.findByIdAndUpdate(id, communication, {new: true});

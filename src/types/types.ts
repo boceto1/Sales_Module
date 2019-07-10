@@ -87,3 +87,12 @@ export interface Task extends CustomSchema {
     description: string;
     realized: boolean;
 }
+
+export interface Mail {
+    from: string;
+    to: string;
+    subject: string;
+    html: string;
+    attachments:string;
+}
+

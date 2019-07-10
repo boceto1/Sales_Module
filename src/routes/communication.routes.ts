@@ -3,13 +3,15 @@ import { createCommunicationCtrl,
     deleteCommunicationByIdCtrl,
     findAllCommunicationsCtrl,
     findCommunicationByIdCtrl,
-    updateCommunicationByIdCtrl
+    updateCommunicationByIdCtrl,
 } from '../controller/communication.controller';
 
 const apiCommunication: Router = Router();
 
-apiCommunication.route('')
+apiCommunication.route('/:type')
             .get(findAllCommunicationsCtrl)
+
+apiCommunication.route('')
             .post(createCommunicationCtrl);
 
 apiCommunication.route('/:id')
