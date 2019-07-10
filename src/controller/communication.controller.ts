@@ -4,6 +4,7 @@ import {createCommunication,
     deleteCommunicationById,
     findCommunicationById,
     getAllCommunications,
+    getAllCommunicationsBySale,
     updateCommunicationById
 } from '../operations/DB/communication.operation';
 import { findSaleById, updateSaleByID } from '../operations/DB/sale.operation';
@@ -18,7 +19,7 @@ export const createCommunicationCtrl = async (req: Request, res: Response ) => {
     } catch (error) {
         res.status(500).json({message: 'Problem to create communication', error});
     }
-}
+};
 
 export const findCommunicationByIdCtrl = async (req: Request, res: Response) => {
     const id: ObjectId = req.params.id;
@@ -35,7 +36,7 @@ export const findCommunicationByIdCtrl = async (req: Request, res: Response) => 
 };
 
 export const findAllCommunicationsCtrl = async (req: Request, res: Response) => {
-    const type: String = req.params.type;
+    const type: string = req.params.type;
     try {
         const communications = await getAllCommunications(type);
         if ( !communications ) {
@@ -46,13 +47,13 @@ export const findAllCommunicationsCtrl = async (req: Request, res: Response) => 
     } catch (error) {
         res.status(500).json({message: 'Problem to find by Idt the communication', error});
     }
-}
+};
 
 export const updateCommunicationByIdCtrl = async (req: Request, res: Response) => {
     const id: ObjectId = req.params.id;
     const communication: Communication = req.body.communication;
     try {
-        const updatedCommunication = await updateCommunicationById(id,communication);
+        const updatedCommunication = await updateCommunicationById(id, communication);
         if ( !updatedCommunication ) {
             res.status(404).json({message: 'Communication not found'});
             return;
@@ -61,7 +62,7 @@ export const updateCommunicationByIdCtrl = async (req: Request, res: Response) =
     } catch (error) {
         res.status(500).json({message: 'Problem to find by Idt the communication', error});
     }
-}
+};
 
 export const deleteCommunicationByIdCtrl = async (req: Request, res: Response) => {
     const id: ObjectId = req.params.id;
@@ -97,5 +98,21 @@ export const createCommunicationBySale = async (req: Request, res: Response) => 
         res.status(200).json({updatedSale});
     } catch (error) {
         res.status(500).json({message: 'Problem to find Sale', error});
+    }
+};
+
+export const getCommunicationsBySale = async (req: Request, res: Response) => {
+
+    const idSale: ObjectId = req.params.idSale;
+
+    try {
+        const tasks = await getAllCommunicationsBySale(idSale);
+        if (!tasks) {
+            res.status(404).json({ message: 'Communications not found' });
+            return;
+        }
+        res.status(200).json({ tasks });
+    } catch (error) {
+        res.status(500).json({ message: 'Problem to find by Communications by Sale', error });
     }
 };

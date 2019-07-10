@@ -17,3 +17,6 @@ export const updateMeetingById = async (id: ObjectId, meeting: Meeting): Promise
 
 export const deleteMeetingById = async (id: ObjectId): Promise<any> =>
                                 MEETING.findByIdAndDelete(id);
+
+export const getAllMeetingsBySale = async (idSale: ObjectId): Promise<any> =>
+                                MEETING.find({idSale});

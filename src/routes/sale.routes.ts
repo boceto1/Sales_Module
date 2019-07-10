@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { createCommunicationBySale } from '../controller/communication.controller';
-import { createMeetingBySale } from '../controller/meeting.controller';
+import { createCommunicationBySale, getCommunicationsBySale } from '../controller/communication.controller';
+import { createMeetingBySale, getMeetingsBySale } from '../controller/meeting.controller';
 import {
     acceptQuotationCtrl,
     createQuotationCtrl,
@@ -11,7 +11,7 @@ import { createServiceCtrl,
          getSaleByIdCtrl,
          getSalesBySellerCtrl,
 } from '../controller/sale.controller';
-import { createTaskBySale } from '../controller/task.controller';
+import { createTaskBySale, getTasksBySale } from '../controller/task.controller';
 
 const apiSale: Router = Router();
 
@@ -34,11 +34,15 @@ apiSale.route('/seller/:idSeller')
             .post(createServiceCtrl); // cambiar a otro endpoin que tenga un Crud de Servicios.
 
 apiSale.route('/:idSale/tasks')
+             .get(getTasksBySale)
              .post(createTaskBySale);
 
 apiSale.route('/:idSale/meetings')
+             .get(getMeetingsBySale)
              .post(createMeetingBySale);
 
 apiSale.route('/:idSale/communications')
+             .get(getCommunicationsBySale)
              .post(createCommunicationBySale);
+
 export const saleRoute = apiSale;

@@ -4,6 +4,7 @@ import {createMeeting,
     deleteMeetingById,
     findMeetingById,
     getAllMeetings,
+    getAllMeetingsBySale,
     updateMeetingById
 } from '../operations/DB/meeting.operation';
 import { findSaleById, updateSaleByID } from '../operations/DB/sale.operation';
@@ -98,5 +99,21 @@ export const createMeetingBySale = async (req: Request, res: Response) => {
         res.status(200).json({updatedSale});
     } catch (error) {
         res.status(500).json({message: 'Problem to find Sale', error});
+    }
+};
+
+export const getMeetingsBySale = async (req: Request, res: Response) => {
+
+    const idSale: ObjectId = req.params.idSale;
+
+    try {
+        const tasks = await getAllMeetingsBySale(idSale);
+        if (!tasks) {
+            res.status(404).json({ message: 'Meetings not found' });
+            return;
+        }
+        res.status(200).json({ tasks });
+    } catch (error) {
+        res.status(500).json({ message: 'Problem to find by Meetigs by Sale', error });
     }
 };

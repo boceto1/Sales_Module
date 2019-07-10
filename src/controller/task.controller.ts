@@ -4,6 +4,7 @@ import {createTask,
     deleteTaskById,
     findTaskById,
     getAllTasks,
+    getAllTasksBySale,
     updateTaskById
 } from '../operations/DB/task.operation';
 
@@ -99,5 +100,21 @@ export const createTaskBySale = async (req: Request, res: Response) => {
         res.status(200).json({updatedSale});
     } catch (error) {
         res.status(500).json({message: 'Problem to find Sale', error});
+    }
+};
+
+export const getTasksBySale = async (req: Request, res: Response) => {
+
+    const idSale: ObjectId = req.params.idSale;
+
+    try {
+        const tasks = await getAllTasksBySale(idSale);
+        if (!tasks) {
+            res.status(404).json({ message: 'Tasks not found' });
+            return;
+        }
+        res.status(200).json({ tasks });
+    } catch (error) {
+        res.status(500).json({ message: 'Problem to find by Idt the task', error });
     }
 };
