@@ -10,6 +10,8 @@ export const createService = async (service: Service): Promise<any> => {
 
 export const findServiceById = async (id: ObjectId): Promise<any> => SERVICE.findById(id);
 
+export const findServicesBySeller = async (idSeller): Promise<any> => SERVICE.find({idSeller});
+
 export const getAllServices = async (): Promise<any> => SERVICE.find();
 
 export const updateServiceById = async (id: ObjectId, service: Service): Promise<any> =>

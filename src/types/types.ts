@@ -1,4 +1,4 @@
-import { ObjectId } from "bson";
+import { ObjectId } from 'bson';
 
 interface CustomSchema {
     _id?: ObjectId;
@@ -37,24 +37,25 @@ export interface Quotation extends CustomSchema{
     isValid: boolean;
 }
 
-export interface Offer extends CustomSchema{
+export interface Offer extends CustomSchema {
     services: OfferService[];
     total?: number;
 }
 
-export interface Service extends CustomSchema{
+export interface Service extends CustomSchema {
+    idSeller: string;
     idService: number;
     description: string;
     unitValue: number;
 }
 
-export interface OfferService extends Service,CustomSchema {
+export interface OfferService extends Service, CustomSchema {
     amount: number;
     totalValue?: number;
 }
 
-export interface Discount extends CustomSchema{
-    idDiscount: number;
+export interface Discount extends CustomSchema {
+    idSeller: string;
     description: string;
     percentage: number;
 }
@@ -93,6 +94,5 @@ export interface Mail {
     to: string;
     subject: string;
     html: string;
-    attachments:string;
+    attachments: string;
 }
-

@@ -7,7 +7,7 @@ const serviceSchema = new Schema({
 });
 
 export const offerServiceSchema = new Schema({
-    idService:{ type: Schema.Types.ObjectId, ref: 'Service', required: true},
+    idService: { type: Schema.Types.ObjectId, ref: 'Service', required: true},
     amount : {type: Number, required: true },
     totalValue: {type: Number, required: true},
 });

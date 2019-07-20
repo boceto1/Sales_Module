@@ -31,7 +31,7 @@ apiSale.route('/:idSale/acceptedQuotation')
 
 apiSale.route('/seller/:idSeller')
             .get(getSalesBySellerCtrl)
-            .post(createServiceCtrl); // cambiar a otro endpoin que tenga un Crud de Servicios.
+            .post(createServiceCtrl);
 
 apiSale.route('/:idSale/tasks')
              .get(getTasksBySale)
