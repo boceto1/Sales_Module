@@ -2,17 +2,20 @@ import { Router } from 'express';
 import { createCommunicationBySale, getCommunicationsBySale } from '../controller/communication.controller';
 import { createMeetingBySale, getMeetingsBySale } from '../controller/meeting.controller';
 import {
-    acceptQuotationCtrl,
-    createQuotationCtrl,
-    getQuotationsBySaleCtrl,
-    getSaleQuotationById } from '../controller/quotation.controller';
+         acceptQuotationCtrl,
+         createQuotationCtrl,
+         getQuotationsBySaleCtrl,
+         getSaleQuotationById,
+} from '../controller/quotation.controller';
 
-import { closeSale,
-         createServiceCtrl,
-         deleteSaleByIdCtrl,
-         getSaleByIdCtrl,
-         getSalesBySellerCtrl,
-         cancelSale,
+import {
+    cancelSale,
+    closeSale,
+    createServiceCtrl,
+    deleteSaleByIdCtrl,
+    getSaleByIdCtrl,
+    getSalesByPhaseCtrl,
+    getSalesBySellerCtrl,
 } from '../controller/sale.controller';
 
 import { addDiscountToContract } from '../controller/contract.controller';
@@ -29,32 +32,36 @@ apiSale.route('/:idSale/canceled')
             .put(cancelSale);
 
 apiSale.route('/:idSale/quotations')
-            .get(getQuotationsBySaleCtrl)
-            .post(createQuotationCtrl);
+    .get(getQuotationsBySaleCtrl)
+    .post(createQuotationCtrl);
 
 apiSale.route('/:idSale/quotations/:idQuotation')
-            .get(getSaleQuotationById);
+    .get(getSaleQuotationById);
 
 apiSale.route('/:idSale/acceptedQuotation')
-            .put(acceptQuotationCtrl);
+    .put(acceptQuotationCtrl);
 
 apiSale.route('/:idSale/contract')
             .post(addDiscountToContract);
 
 apiSale.route('/seller/:idSeller')
             .get(getSalesBySellerCtrl)
-            .post(createServiceCtrl);
+            .post(createServiceCtrl)
+            .get(getSalesBySellerCtrl);
+
+apiSale.route('/seller/:idSeller/:phase')
+    .get(getSalesByPhaseCtrl)
 
 apiSale.route('/:idSale/tasks')
-             .get(getTasksBySale)
-             .post(createTaskBySale);
+    .get(getTasksBySale)
+    .post(createTaskBySale);
 
 apiSale.route('/:idSale/meetings')
-             .get(getMeetingsBySale)
-             .post(createMeetingBySale);
+    .get(getMeetingsBySale)
+    .post(createMeetingBySale);
 
 apiSale.route('/:idSale/communications')
-             .get(getCommunicationsBySale)
-             .post(createCommunicationBySale);
+    .get(getCommunicationsBySale)
+    .post(createCommunicationBySale);
 
 export const saleRoute = apiSale;

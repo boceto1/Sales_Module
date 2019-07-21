@@ -2,7 +2,7 @@ import * as nodemailer from "nodemailer";
 import config from '../../configs/configs';
 import { Mail } from '../../types/types';
 
-export const createMailCtrl =  (email : Mail) => {
+export const createMailCtrl = (email: Mail) => {
     let mailOptions = {
         from: email.from,
         to: email.to,
@@ -12,7 +12,7 @@ export const createMailCtrl =  (email : Mail) => {
             filename: 'file.pdf',
             path: email.attachments,
             contentType: 'application/pdf'
-          }],
+        }],
     };
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
