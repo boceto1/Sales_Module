@@ -6,18 +6,27 @@ import {
     createQuotationCtrl,
     getQuotationsBySaleCtrl,
     getSaleQuotationById } from '../controller/quotation.controller';
-import { createServiceCtrl,
+
+import { closeSale,
+         createServiceCtrl,
          deleteSaleByIdCtrl,
          getSaleByIdCtrl,
          getSalesBySellerCtrl,
+         cancelSale,
 } from '../controller/sale.controller';
+
+import { addDiscountToContract } from '../controller/contract.controller';
 import { createTaskBySale, getTasksBySale } from '../controller/task.controller';
 
 const apiSale: Router = Router();
 
 apiSale.route('/:idSale')
             .get(getSaleByIdCtrl)
-            .delete(deleteSaleByIdCtrl);
+            .delete(deleteSaleByIdCtrl)
+            .put(closeSale);
+
+apiSale.route('/:idSale/canceled')
+            .put(cancelSale);
 
 apiSale.route('/:idSale/quotations')
             .get(getQuotationsBySaleCtrl)
@@ -28,6 +37,9 @@ apiSale.route('/:idSale/quotations/:idQuotation')
 
 apiSale.route('/:idSale/acceptedQuotation')
             .put(acceptQuotationCtrl);
+
+apiSale.route('/:idSale/contract')
+            .post(addDiscountToContract);
 
 apiSale.route('/seller/:idSeller')
             .get(getSalesBySellerCtrl)

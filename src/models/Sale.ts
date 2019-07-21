@@ -1,4 +1,5 @@
 import {  model, Schema} from 'mongoose';
+import { discountSchema } from './Discount';
 import { offerSchema as Offer, quotationSchema as Quotation } from './Quotation';
 
 const contractSchema = new Schema({
@@ -6,6 +7,7 @@ const contractSchema = new Schema({
     description: {type: String, required: true},
     offer: Offer,
     creationDate: {type: Date, default: Date.now()},
+    discounts: [{type: discountSchema, default: []}],
     total: {type: Number, required: true}
 });
 
@@ -23,6 +25,8 @@ const saleSchema = new Schema({
     tasks: [{type: Schema.Types.ObjectId, ref: 'Task', default: []}],
     meetings: [{type: Schema.Types.ObjectId, ref: 'Meeting', default: []}],
     communications: [{type: Schema.Types.ObjectId, ref: 'Communication', default: []}],
+    subtotal: Number,
+    total: Number,
 });
 
 export const SALE = model('Sale', saleSchema);

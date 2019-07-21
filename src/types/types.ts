@@ -19,6 +19,8 @@ export interface Sale extends CustomSchema {
     meetings?: ObjectId[];
     communications?: ObjectId[];
     contract?: Contract;
+    subtotal?: number;
+    total?: number;
 }
 
 export interface Contract extends CustomSchema {
@@ -27,9 +29,10 @@ export interface Contract extends CustomSchema {
     offer: Offer;
     creationDate: Date;
     total: number;
+    discounts?: [Discount];
 }
 
-export interface Quotation extends CustomSchema{
+export interface Quotation extends CustomSchema {
     idCompany: number;
     description: string;
     offers: Offer [];

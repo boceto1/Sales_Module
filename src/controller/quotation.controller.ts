@@ -2,12 +2,12 @@ import { ObjectId } from 'bson';
 import { Request, Response } from 'express';
 import { findSaleById, updateSale, updateSaleByID } from '../operations/DB/sale.operation';
 import {
+    acceptQuotation,
     calculateTotalAmountQuotation,
     createQuotation,
     findQuotationByID,
     sortQuotationByDate,
     validateQuotation,
-    acceptQuotation,
 } from '../operations/quotation.operations';
 import { Quotation, Sale } from '../types/types';
 
