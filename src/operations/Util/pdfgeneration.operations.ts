@@ -1,5 +1,5 @@
 var pdf = require('html-pdf');
-import { Quotation, Offer } from '../../types/types';
+import { Quotation, Offer, OfferService } from '../../types/types';
 var options = { format: 'Letter' };
 
 function head() {
@@ -21,37 +21,47 @@ function body(quote: Quotation, company: String) {
 }
 
 function tablaService(servic: Offer) {
-  var service = ``;
-  for (var j = 0; j < servic.services.length; j++) {
-    service = service + `<tr>
-      <td>${servic.services[j].idService}</td>
-        <td> ${servic.services[j].description} </td>
-          <td> ${servic.services[j].unitValue}</td>
-          <td> ${servic.services[j].amount} </td>
-          <td> ${servic.services[j].totalValue}</td>
-            </tr>`;
-  }
-  return service;
+  const rede = servic.services.map(renderOfferService);
+  const render = rede.reduce(function (valorAnterior, valorActual) {
+    return valorAnterior + valorActual;
+  });
+  return render;
 }
 
+function renderOfferService(item: OfferService) {
+  return `<tr>
+  <td>${item.idService}</td>
+    <td> ${item.description} </td>
+      <td> ${item.unitValue}</td>
+      <td> ${item.amount} </td>
+      <td> ${item.totalValue}</td>
+  </tr>`
+}
+
+function renderOffer(item: Offer) {
+  var html = `<table border="1" >
+  <caption>Offer </caption><tr>
+  <th>ID Service </th>
+    <th> Description </th>
+    <th> Unit Value </th>
+    <th> Amount </th>
+    <th> Total Value </th>
+    </tr>`;
+  html = html + tablaService(item);
+  html = html + `</table>
+    <p> Total: <output id="total"> ${item.total} </output></p>`;
+  return html;
+}
+
+
 function tablaOffer(quote: Quotation) {
-  var offer = ``;
   console.log(quote.offers.length)
-  for (var i = 0; i < quote.offers.length; i++) {
-    offer = offer + `<table border="1" >
-    <caption>Offer </caption><tr>
-    <th>ID Service </th>
-      <th> Description </th>
-      <th> Unit Value </th>
-      <th> Amount </th>
-      <th> Total Value </th>
-      </tr>`;
-    console.log(quote.offers[i].services)
-    offer = offer + tablaService(quote.offers[i]);
-    offer = offer + `</table>
-      <p> Total: <output id="total"> ${quote.offers[i].total} </output></p>`;
-  }
-  return offer;
+  const rede = quote.offers.map(renderOffer);
+
+  const render = rede.reduce(function (valorAnterior, valorActual) {
+    return valorAnterior + valorActual;
+  });
+  return render;
 }
 function generatePDF(html: String) {
   console.log(html)
