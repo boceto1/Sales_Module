@@ -1,7 +1,7 @@
 import { createMailCtrl } from '../../operations/Util/mail.operation'
 import { generateHTML } from '../../operations/Util/pdfgeneration.operations'
 
-import { Mail } from '../../types/types';
+import { Mail, Company } from '../../types/types';
 import { Quotation } from '../../types/types';
 import { Offer } from '../../types/types';
 import { OfferService } from '../../types/types';
@@ -40,7 +40,19 @@ describe.only('Create email ', () => {
                 totalValue: 10
             }
             const offer: Offer = {
-                services: [offerService, offerService1],
+                services: [offerService, offerService1, offerService1, offerService1],
+                total: 10
+            }
+            const offer2: Offer = {
+                services: [offerService, offerService1, offerService1, offerService1],
+                total: 10
+            }
+            const offer3: Offer = {
+                services: [offerService, offerService1, offerService1, offerService1],
+                total: 10
+            }
+            const offer4: Offer = {
+                services: [offerService, offerService1, offerService1, offerService1],
                 total: 10
             }
             const offer1: Offer = {
@@ -53,10 +65,24 @@ describe.only('Create email ', () => {
                 creationDate: new Date(),
                 isValid: true,
                 offers: [
-                    offer, offer1
+                    offer, offer1, offer2, offer3, offer4
                 ]
             }
-            generateHTML(quotation,"EMPRESA");
+            const company: Company[] = [{
+                name: "empresa",
+                ruc: "1710414184001",
+                address: 'Sangolqui',
+                mail: "cudiaza@gmail.com",
+                phone: "0987293631",
+            },
+            {
+                name: "empresa1",
+                ruc: "1710414185001",
+                address: 'Sangolqui1',
+                mail: "cudiaza1@gmail.com",
+                phone: "0987293632",
+            }]
+            generateHTML(quotation, company);
         });
     });
 

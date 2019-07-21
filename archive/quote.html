@@ -1,34 +1,218 @@
-<!DOCTYPE HTML5>
-<html>
-
-<head>
+<!DOCTYPE HTML5><html><head>
     <title>Ejercicios prácticos HTML5</title>
     <meta charset="utf-8">
     <meta name="author" content="">
-</head>
-
-<body>
-    <p>ID Company: <output id="id">1</output></p>
-    <p>Description: <output id="description"> Ejemplo </output></p>
-    <p>Creation Date: <output id="creation"> Sat Jul 20 2019 17:51:36 GMT-0500 (GMT-05:00) </output></p>
-    <center>
-        <table border="1">
-            <caption>Service </caption>
-            <tr>
-                <th>ID Service </th>
-                <th> Description </th>
-                <th> Value </th>
-            </tr>
-            <tr>
-                <td>0</td>
-                <td> des </td>
-                <td> 0</td>
-                <td> 10 </td>
-                <td> 10</td>
-            </tr>
-        </table>
-        <p> Total: <output id="total"> 10 </output></p>
-    </center>
-</body>
-
-</html>
+    <style>
+    .box {
+      overflow: hidden;
+  }
+  
+  .content {
+      font-size: 15px;
+      line-height: 20px;
+      padding: 0 20px;
+      text-align: justify;
+  }
+  
+  .left {
+      float: left;
+      width: 50%;
+  }
+  
+  .left .content {
+      border-right: 5px solid #4BB495  ;
+  }
+  
+  .right {
+      float: right;
+      width: 50%;
+  }
+  H1 { text-align: center}
+  H3 { text-align: center}
+  td {
+    font-size: 15px;
+    line-height: 20px;
+    padding: 0 20px;
+    text-align: justify;
+    vertical-align: top;
+    width: 50%;
+  }
+  
+  td.first {
+    border-right: 5px solid #4BB495  ;
+  }
+  </style>
+    </head><body><h1>EMPRESA</h1> <h3>COTIZACION</h3>
+        <div class="box">
+        <div class="left">
+            <div class="content">
+            <h3>Company</h3>
+            <p>Name: <output id = "id">1</output></p>
+            <p>RUC: <output id="ruc" > Ejemplo </output></p>
+              <p>Address: <output id="address" > Ejemplo </output></p>
+              <p>Phone: <output id="phone" > Ejemplo </output></p>
+              <p>Mail: <output id="mail" > Ejemplo </output></p>
+            </div>
+        </div>
+        <div class="right">
+            <div class="content">
+            <h3>Client</h3>
+            <p>Name: <output id = "id1">1</output></p>
+            <p>RUC: <output id="ruc1" > Ejemplo </output></p>
+              <p>Address: <output id="address1" > Ejemplo </output></p>
+              <p>Phone: <output id="phone1" > Ejemplo </output></p>
+              <p>Mail: <output id="mail1" > Ejemplo </output></p>
+            </div>
+        </div>
+    </div>
+    <p>Description: <output id="description" > Ejemplo </output></p>
+      <p>Date: <output id="creation" > Sun Jul 21 2019 </output></p>
+        <center><table border="1" >
+    <caption>Offer</caption><tr>
+    <th >ID Service </th>
+      <th> Description </th>
+      <th> Unit Value </th>
+      <th> Amount </th>
+      <th> Total Value </th>
+      </tr><tr>
+    <td WIDTH="10">0</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr><tr>
+    <td WIDTH="10">1</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr><tr>
+    <td WIDTH="10">1</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr><tr>
+    <td WIDTH="10">1</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr></table>
+      <p> Total: <output id="total"> 10 </output></p><table border="1" >
+    <caption>Offer</caption><tr>
+    <th >ID Service </th>
+      <th> Description </th>
+      <th> Unit Value </th>
+      <th> Amount </th>
+      <th> Total Value </th>
+      </tr><tr>
+    <td WIDTH="10">0</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr><tr>
+    <td WIDTH="10">1</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr></table>
+      <p> Total: <output id="total"> 20 </output></p><table border="1" >
+    <caption>Offer</caption><tr>
+    <th >ID Service </th>
+      <th> Description </th>
+      <th> Unit Value </th>
+      <th> Amount </th>
+      <th> Total Value </th>
+      </tr><tr>
+    <td WIDTH="10">0</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr><tr>
+    <td WIDTH="10">1</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr><tr>
+    <td WIDTH="10">1</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr><tr>
+    <td WIDTH="10">1</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr></table>
+      <p> Total: <output id="total"> 10 </output></p><table border="1" >
+    <caption>Offer</caption><tr>
+    <th >ID Service </th>
+      <th> Description </th>
+      <th> Unit Value </th>
+      <th> Amount </th>
+      <th> Total Value </th>
+      </tr><tr>
+    <td WIDTH="10">0</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr><tr>
+    <td WIDTH="10">1</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr><tr>
+    <td WIDTH="10">1</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr><tr>
+    <td WIDTH="10">1</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr></table>
+      <p tex> Total: <output id="total"> 10 </output></p><table border="1" >
+    <caption>Offer</caption><tr>
+    <th >ID Service </th>
+      <th> Description </th>
+      <th> Unit Value </th>
+      <th> Amount </th>
+      <th> Total Value </th>
+      </tr><tr>
+    <td WIDTH="10">0</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr><tr>
+    <td WIDTH="10">1</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr><tr>
+    <td WIDTH="10">1</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr><tr>
+    <td WIDTH="10">1</td>
+      <td WIDTH="50"> des </td>
+        <td> 0</td>
+        <td> 10 </td>
+        <td> 10</td>
+    </tr></table>
+      <p> Total: <output id="total"> 10 </output></p></center> </body></html>

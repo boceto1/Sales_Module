@@ -99,3 +99,10 @@ export interface Mail {
     html: string;
     attachments: string;
 }
+export interface Company {
+    name: string;
+    ruc: string;
+    address: string;
+    phone: string;
+    mail:string;
+}

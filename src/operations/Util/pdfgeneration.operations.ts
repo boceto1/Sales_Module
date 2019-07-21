@@ -1,22 +1,80 @@
 var pdf = require('html-pdf');
-import { Quotation, Offer, OfferService } from '../../types/types';
-var options = { format: 'Letter' };
+import { Quotation, Offer, OfferService, Company } from '../../types/types';
+var options = { format: 'A4' };
 
 function head() {
   var head = `<!DOCTYPE HTML5><html><head>
-  <title>Ejercicios prácticos HTML5</title>
+  <title>Cotizacion</title>
   <meta charset="utf-8">
   <meta name="author" content="">
+  <style>
+  .box {
+    overflow: hidden;
+}
+
+.content {
+    font-size: 15px;
+    line-height: 20px;
+    padding: 0 20px;
+    text-align: justify;
+}
+
+.left {
+    float: left;
+    width: 50%;
+}
+
+.left .content {
+    border-right: 5px solid #000000  ;
+}
+
+.right {
+    float: right;
+    width: 50%;
+}
+H1 { text-align: center}
+H3 { text-align: center}
+td {
+  font-size: 15px;
+  line-height: 20px;
+  padding: 0 20px;
+  text-align: justify;
+  vertical-align: top;
+
+}
+
+</style>
   </head>`;
   return head;
 }
 
-function body(quote: Quotation, company: String) {
-  var body = `<body><center> <h1>${company}</h1></center>
-  <p>ID Company: <output id = "id">${ quote.idCompany}</output></p>
-    <p>Description: <output id="description" > ${ quote.description} </output></p>
-      <p>Date: <output id="creation" > ${ quote.creationDate} </output></p>
-        <center>`;
+function body(quote: Quotation, company: Company[]) {
+  var body = `<body><h1>${company[0].name}</h1> <h3>COTIZACION</h3>
+      <div class="box">
+      <div class="left">
+          <div class="content">
+          <h3>Company</h3>
+          <p>Name: <output id = "id">${ company[0].name}</output></p>
+          <p>RUC: <output id="ruc" > ${ company[0].ruc} </output></p>
+            <p>Address: <output id="address" > ${ company[0].address} </output></p>  
+            <p>Phone: <output id="phone" > ${ company[0].phone} </output></p>  
+            <p>Mail: <output id="mail" > ${ company[0].mail} </output></p>  
+          </div>
+      </div>
+      <div class="right">
+          <div class="content">
+          <h3>Client</h3>
+          <p>Name: <output id = "id1">${ company[1].name}</output></p>
+          <p>RUC: <output id="ruc1" > ${ company[1].ruc} </output></p>
+            <p>Address: <output id="address1" > ${ company[1].address} </output></p>  
+            <p>Phone: <output id="phone1" > ${ company[1].phone} </output></p>  
+            <p>Mail: <output id="mail1" > ${ company[1].mail} </output></p>  
+          </div>
+      </div>
+  </div>
+  <p>Description: <output id="description" > ${ quote.description} </output></p>
+    <p>Date: <output id="creation" > ${ quote.creationDate.toDateString()} </output></p>  
+      <center>`;
   return body;
 }
 
@@ -30,8 +88,8 @@ function tablaService(servic: Offer) {
 
 function renderOfferService(item: OfferService) {
   return `<tr>
-  <td>${item.idService}</td>
-    <td> ${item.description} </td>
+  <td >${item.idService}</td>
+    <td WIDTH="70%"> ${item.description} </td>
       <td> ${item.unitValue}</td>
       <td> ${item.amount} </td>
       <td> ${item.totalValue}</td>
@@ -40,16 +98,16 @@ function renderOfferService(item: OfferService) {
 
 function renderOffer(item: Offer) {
   var html = `<table border="1" >
-  <caption>Offer </caption><tr>
-  <th>ID Service </th>
-    <th> Description </th>
+  <caption>Offer</caption><tr>
+  <th >ID Service </th>
+    <th WIDTH="70%"> Description </th>
     <th> Unit Value </th>
     <th> Amount </th>
     <th> Total Value </th>
     </tr>`;
   html = html + tablaService(item);
   html = html + `</table>
-    <p> Total: <output id="total"> ${item.total} </output></p>`;
+    <p align="right" > Total: <output id="total"> ${item.total} </output></p>`;
   return html;
 }
 
@@ -71,7 +129,7 @@ function generatePDF(html: String) {
   });
 }
 
-export const generateHTML = (quote: Quotation, company: String) => {
+export const generateHTML = (quote: Quotation, company:Company[]) => {
   var html = ``;
   html = head();
   html = html + body(quote, company);
