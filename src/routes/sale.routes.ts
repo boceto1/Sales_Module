@@ -1,5 +1,10 @@
 import { Router } from 'express';
-import { createCommunicationBySale, getCommunicationsBySale } from '../controller/communication.controller';
+import {
+    createCommunicationBySale,
+    getCommunicationsBySale,
+    getCommunicationsTypeBySale,
+    createMailBySale
+} from '../controller/communication.controller';
 import { createMeetingBySale, getMeetingsBySale } from '../controller/meeting.controller';
 import {
     acceptQuotationCtrl,
@@ -67,5 +72,9 @@ apiSale.route('/:idSale/meetings')
 apiSale.route('/:idSale/communications')
     .get(getCommunicationsBySale)
     .post(createCommunicationBySale);
+
+apiSale.route('/:idSale/communications/:type')
+    .get(getCommunicationsTypeBySale)
+    .post(createMailBySale);
 
 export const saleRoute = apiSale;
