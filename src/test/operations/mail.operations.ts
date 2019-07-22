@@ -6,14 +6,19 @@ import { Quotation } from '../../types/types';
 import { Offer } from '../../types/types';
 import { OfferService } from '../../types/types';
 
-describe('Create email ', () => {
+describe.only('Create email ', () => {
     describe('Create email', () => {
         const email: Mail = {
             from: 'ventasarquitectura2019@gmail.com',
-            to: 'janka.obando@gmail.com',
+            to: 'cudiaza@gmail.com',
             subject: 'Test',
             html: '<h1>Test 1 1</h1>',
-            attachments: 'C:/Users/crist/Documents/EjemploKarlita.pdf',
+            /*attachments: [{
+                filename: 'cotizacion.pdf',
+                path: 'G:/ARQUITECTURA/3er Parcial/Sales_Module/tmp/cotizacion.pdf',
+                contentType: 'application/pdf'
+            }],*/
+            attachments: [{filename :'', path:'',contentType:''}],
         }
         it('email sends correctly', () => {
             createMailCtrl(email);
@@ -22,10 +27,11 @@ describe('Create email ', () => {
 
 });
 
-describe.only('Create email ', () => {
+describe('Create email ', () => {
     describe('Create email', () => {
         it('email sends correctly', () => {
             const offerService: OfferService = {
+                idSeller: "2",
                 idService: 0,
                 description: 'des',
                 unitValue: 0,
@@ -33,6 +39,7 @@ describe.only('Create email ', () => {
                 totalValue: 10
             }
             const offerService1: OfferService = {
+                idSeller: "2",
                 idService: 1,
                 description: 'des',
                 unitValue: 0,
@@ -82,7 +89,19 @@ describe.only('Create email ', () => {
                 mail: "cudiaza1@gmail.com",
                 phone: "0987293632",
             }]
-            generateHTML(quotation, company);
+            const emailE: string = company[1].mail;
+            const email: Mail = {
+              from: "",
+              to: emailE,
+              subject: 'Cotizacion',
+              html: '<h1>Envio la cotizacion adjunta, espero su respuesta</h1>',
+              attachments: [{
+                filename: 'cotizacion.pdf',
+                path: 'G:/ARQUITECTURA/3er Parcial/Sales_Module/tmp/cotizacion.pdf',
+                contentType: 'application/pdf'
+              }],
+            }
+            generateHTML(quotation, company,quotation,email);
         });
     });
 

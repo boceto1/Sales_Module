@@ -4,15 +4,11 @@ import { Mail } from '../../types/types';
 
 export const createMailCtrl = (email: Mail) => {
     let mailOptions = {
-        from: email.from,
+        from: config.user,
         to: email.to,
         subject: email.subject,
         html: email.html,
-        attachments: [{
-            filename: 'file.pdf',
-            path: email.attachments,
-            contentType: 'application/pdf'
-        }],
+        attachments: email.attachments
     };
     const transporter = nodemailer.createTransport({
         service: 'Gmail',

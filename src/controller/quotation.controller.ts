@@ -9,11 +9,17 @@ import {
     sortQuotationByDate,
     validateQuotation,
 } from '../operations/quotation.operations';
-import { Quotation, Sale } from '../types/types';
+import {
+    createPDF, createCommunicationMail,
+} from '../operations/mail.operations';
+
+import { Quotation, Sale, Company, Mail } from '../types/types';
 
 export const createQuotationCtrl = async (req: Request, res: Response): Promise<any> => {
     const idSale: ObjectId = req.params.idSale;
     const quotation: Quotation = req.body.quotation;
+    quotation.creationDate = new Date();
+    const company: Company[] = req.body.company;
     const sale: Sale = await findSaleById(idSale);
 
     if (!sale) {
@@ -23,13 +29,15 @@ export const createQuotationCtrl = async (req: Request, res: Response): Promise<
 
     const calculatedQuotation: Quotation = await calculateTotalAmountQuotation(quotation);
     const updatedQuotationSale: Sale = createQuotation(sale, calculatedQuotation);
-
     if (!updatedQuotationSale) {
         res.status(400).json({ message: 'It\'s not posible add quotation' });
         return;
     }
     try {
         const updatedSale: Sale = await updateSale(updatedQuotationSale);
+        const index = updatedSale.quotations.length - 1;
+        const mail: Mail = await createPDF(updatedSale.quotations[index], company, calculatedQuotation);
+        await createCommunicationMail(idSale, mail, res);
         res.status(201).json(updatedSale.quotations);
         return;
     } catch (error) {
@@ -53,7 +61,6 @@ export const getQuotationsBySaleCtrl = async (req: Request, res: Response) => {
     }
 
     const sortQuotation = sortQuotationByDate(sale.quotations);
-
     res.status(200).json(sortQuotation);
 };
 

@@ -35,7 +35,7 @@ export interface Contract extends CustomSchema {
 export interface Quotation extends CustomSchema {
     idCompany: number;
     description: string;
-    offers: Offer [];
+    offers: Offer[];
     creationDate: Date;
     isValid: boolean;
 }
@@ -66,21 +66,23 @@ export interface Discount extends CustomSchema {
 export interface Communication extends CustomSchema {
     idSale: ObjectId;
     description: string;
-    subjet: string;
-    phoneNumber: string;
     date: Date;
-    email: string;
     type: string;
     observation?: string;
-    state: string;
+    email: Mail,
+    call: Call
 }
+export interface Call {
+    phoneNumber: number,
+    state: string,
+};
 
 export interface Meeting extends CustomSchema {
     idSale: ObjectId;
     topic: string;
     description: string;
     date: Date;
-    assistants: string [];
+    assistants: string[];
     duration: number;
     place: string;
     observation?: string;
@@ -97,12 +99,16 @@ export interface Mail {
     to: string;
     subject: string;
     html: string;
-    attachments: string;
+    attachments: [{
+        filename: string;
+        path: string;
+        contentType: string;
+    }],
 }
 export interface Company {
     name: string;
     ruc: string;
     address: string;
     phone: string;
-    mail:string;
+    mail: string;
 }

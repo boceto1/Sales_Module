@@ -1,5 +1,8 @@
-var pdf = require('html-pdf');
-import { Quotation, Offer, OfferService, Company } from '../../types/types';
+const pdf = require('html-pdf');
+import {
+  createMailCtrl,
+} from '../Util/mail.operation';
+import { Quotation, Offer, OfferService, Company, Mail } from '../../types/types';
 var options = { format: 'A4' };
 
 function head() {
@@ -73,7 +76,7 @@ function body(quote: Quotation, company: Company[]) {
       </div>
   </div>
   <p>Description: <output id="description" > ${ quote.description} </output></p>
-    <p>Date: <output id="creation" > ${ quote.creationDate.toDateString()} </output></p>  
+    <p>Date: <output id="creation" > ${ quote.creationDate.toDateString()}</output></p>  
       <center>`;
   return body;
 }
@@ -99,7 +102,7 @@ function renderOfferService(item: OfferService) {
 function renderOffer(item: Offer) {
   var html = `<table border="1" >
   <caption>Offer</caption><tr>
-  <th >ID Service </th>
+  <th >ID Service</th>
     <th WIDTH="70%"> Description </th>
     <th> Unit Value </th>
     <th> Amount </th>
@@ -112,28 +115,30 @@ function renderOffer(item: Offer) {
 }
 
 
-function tablaOffer(quote: Quotation) {
+function tablaOffer(quote: Quotation,quotes: Quotation) {
   console.log(quote.offers.length)
-  const rede = quote.offers.map(renderOffer);
+  const rede = quotes.offers.map(renderOffer);
 
   const render = rede.reduce(function (valorAnterior, valorActual) {
     return valorAnterior + valorActual;
   });
   return render;
 }
-function generatePDF(html: String) {
-  console.log(html)
-  pdf.create(html, options).toFile('./tmp/example.pdf', function (err, res) {
-    if (err) return console.log(err);
-    console.log(res); // { filename: '/app/businesscard.pdf' }
+
+const generatePDF = async (html: String,mail:Mail) => {
+  pdf.create(html, options).toFile('./tmp/cotizacion.pdf', function (err, res) {
+    if (err) return "error";
+    console.log(res);
+    createMailCtrl(mail);
+    return "realizado"; // { filename: '/app/businesscard.pdf' }
   });
 }
 
-export const generateHTML = (quote: Quotation, company:Company[]) => {
+export const generateHTML = async (quote: Quotation, company: Company[],quotes: Quotation,mail:Mail): Promise<any> => {
   var html = ``;
   html = head();
   html = html + body(quote, company);
-  html = html + tablaOffer(quote);
+  html = html + tablaOffer(quote,quotes);
   html = html + `</center> </body></html>`;
-  generatePDF(html);
+  await generatePDF(html,mail);
 }

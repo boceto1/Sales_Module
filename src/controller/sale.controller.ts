@@ -35,7 +35,7 @@ export const getSaleByIdCtrl = async (req: Request, res: Response) => {
         foundSale.subtotal = calcualteSubTotal(foundSale);
         foundSale.total = foundSale.subtotal + foundSale.subtotal * 0.12;
 
-        res.status(200).json({sale: foundSale, subtotal: foundSale.subtotal, total: foundSale.total });
+        res.status(200).json({ sale: foundSale, subtotal: foundSale.subtotal, total: foundSale.total });
         res.status(200).json({ foundSale });
     } catch (error) {
         res.status(500).json({ message: 'Problem to find Sale', error });
@@ -49,17 +49,17 @@ export const getSalesBySellerCtrl = async (req: Request, res: Response) => {
         const sales: [Sale] = await findSalesBySeller(idSeller);
 
         if (!sales) {
-            res.status(404).json({message: 'Sale not found'});
+            res.status(404).json({ message: 'Sale not found' });
             return;
         }
 
         if (all) {
-            res.status(200).json({sales});
+            res.status(200).json({ sales });
         }
 
         const foundSales = sales.filter(sale => !sale.isClosed);
 
-        res.status(200).json({foundSales});
+        res.status(200).json({ foundSales });
 
     } catch (error) {
         res.status(500).json({ message: 'Problem to find Sale', error });
@@ -95,18 +95,18 @@ export const deleteSaleByIdCtrl = async (req: Request, res: Response) => {
     }
 };
 
-export const closeSale = async (req: Request, res: Response ) => {
+export const closeSale = async (req: Request, res: Response) => {
 
     const idSale: ObjectId = req.params.idSale;
 
     const foundSale: Sale = await findSaleById(idSale);
     if (!foundSale) {
-            res.status(404).json({message: 'Sale not found'});
-            return;
+        res.status(404).json({ message: 'Sale not found' });
+        return;
     }
 
     if (!foundSale.contract) {
-        res.status(404).json({message: 'Sale doesn\'t has contract '});
+        res.status(404).json({ message: 'Sale doesn\'t has contract ' });
         return;
     }
 
@@ -118,11 +118,11 @@ export const closeSale = async (req: Request, res: Response ) => {
     const closedSale = await updateSaleByID(foundSale._id, foundSale);
 
     if (!closeSale) {
-        res.status(500).json({error: 'Error to closed Sale'});
+        res.status(500).json({ error: 'Error to closed Sale' });
         return;
     }
 
-    res.status(200).json({sale: closedSale});
+    res.status(200).json({ sale: closedSale });
 
 };
 
@@ -133,8 +133,8 @@ export const cancelSale = async (req: Request, res: Response) => {
     const foundSale: Sale = await findSaleById(idSale);
 
     if (!foundSale) {
-            res.status(404).json({message: 'Sale not found'});
-            return;
+        res.status(404).json({ message: 'Sale not found' });
+        return;
     }
 
     foundSale.isClosed = true;
@@ -142,23 +142,23 @@ export const cancelSale = async (req: Request, res: Response) => {
     const cancelSale = await updateSaleByID(foundSale._id, foundSale);
 
     if (!closeSale) {
-        res.status(500).json({error: 'Error to cancel Sale'});
+        res.status(500).json({ error: 'Error to cancel Sale' });
         return;
     }
 
-    res.status(200).json({sale: cancelSale});
+    res.status(200).json({ sale: cancelSale });
 
 };
 
 const calcualteSubTotal = (sale: Sale): number => {
 
-        if (!sale.contract) {
-            return 0;
-        }
+    if (!sale.contract) {
+        return 0;
+    }
 
-        const discounts = percentageDiscounts(sale.contract);
-        const total = sale.contract.total;
-        return total - total * (discounts / 100);
+    const discounts = percentageDiscounts(sale.contract);
+    const total = sale.contract.total;
+    return total - total * (discounts / 100);
 };
 
 const percentageDiscounts = (contract: Contract): number => {
@@ -167,7 +167,23 @@ const percentageDiscounts = (contract: Contract): number => {
         return 0;
     }
 
-    const  { discounts } = contract;
-    const percentage = discounts.reduce(( acc, curr) => acc + curr.percentage , 0);
+    const { discounts } = contract;
+    const percentage = discounts.reduce((acc, curr) => acc + curr.percentage, 0);
     return percentage;
+};
+export const updatePhase = async (req: Request, res: Response) => {
+    const idSale: ObjectId = req.params.idSale;
+    const phase: string = req.body.phase;
+    try {
+        const foundSale: Sale = await findSaleById(idSale);
+        if (!foundSale) {
+            res.status(404).json({ message: 'Sale not found' });
+            return;
+        }
+        foundSale.phase = phase;
+        const updatedSale = await updateSaleByID(foundSale._id, foundSale);
+        res.status(200).json({ updatedSale });
+    } catch (error) {
+        res.status(500).json({ message: 'Problem to find Sale', error });
+    }
 };

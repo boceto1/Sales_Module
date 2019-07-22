@@ -2,10 +2,10 @@ import { Router } from 'express';
 import { createCommunicationBySale, getCommunicationsBySale } from '../controller/communication.controller';
 import { createMeetingBySale, getMeetingsBySale } from '../controller/meeting.controller';
 import {
-         acceptQuotationCtrl,
-         createQuotationCtrl,
-         getQuotationsBySaleCtrl,
-         getSaleQuotationById,
+    acceptQuotationCtrl,
+    createQuotationCtrl,
+    getQuotationsBySaleCtrl,
+    getSaleQuotationById,
 } from '../controller/quotation.controller';
 
 import {
@@ -16,6 +16,7 @@ import {
     getSaleByIdCtrl,
     getSalesByPhaseCtrl,
     getSalesBySellerCtrl,
+    updatePhase,
 } from '../controller/sale.controller';
 
 import { addDiscountToContract } from '../controller/contract.controller';
@@ -24,12 +25,12 @@ import { createTaskBySale, getTasksBySale } from '../controller/task.controller'
 const apiSale: Router = Router();
 
 apiSale.route('/:idSale')
-            .get(getSaleByIdCtrl)
-            .delete(deleteSaleByIdCtrl)
-            .put(closeSale);
+    .get(getSaleByIdCtrl)
+    .delete(deleteSaleByIdCtrl)
+    .put(closeSale);
 
 apiSale.route('/:idSale/canceled')
-            .put(cancelSale);
+    .put(cancelSale);
 
 apiSale.route('/:idSale/quotations')
     .get(getQuotationsBySaleCtrl)
@@ -42,12 +43,12 @@ apiSale.route('/:idSale/acceptedQuotation')
     .put(acceptQuotationCtrl);
 
 apiSale.route('/:idSale/contract')
-            .post(addDiscountToContract);
+    .post(addDiscountToContract);
 
 apiSale.route('/seller/:idSeller')
-            .get(getSalesBySellerCtrl)
-            .post(createServiceCtrl)
-            .get(getSalesBySellerCtrl);
+    .get(getSalesBySellerCtrl)
+    .post(createServiceCtrl)
+    .get(getSalesBySellerCtrl);
 
 apiSale.route('/seller/:idSeller/:phase')
     .get(getSalesByPhaseCtrl)
@@ -55,6 +56,9 @@ apiSale.route('/seller/:idSeller/:phase')
 apiSale.route('/:idSale/tasks')
     .get(getTasksBySale)
     .post(createTaskBySale);
+
+apiSale.route('/:idSale/phase')
+    .put(updatePhase);
 
 apiSale.route('/:idSale/meetings')
     .get(getMeetingsBySale)

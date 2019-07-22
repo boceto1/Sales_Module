@@ -45,6 +45,9 @@ export const calculateTotalServices = async (services: OfferService[]): Promise<
 
 export const calculateTotalAmountService = async (service: OfferService): Promise<OfferService> =>  {
     const serviceC: Service = await findServiceById(service._id);
+    service.description = serviceC.description;
+    service.idService = serviceC.idService;
+    service.unitValue = serviceC.unitValue
     service.totalValue = serviceC.unitValue * service.amount;
     return service;
 };

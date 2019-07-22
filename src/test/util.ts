@@ -1,18 +1,21 @@
 import { Offer, OfferService, Quotation, Sale } from "../types/types";
 
 export const service1: OfferService = {
+    idSeller:"1",
     idService: 1,
     description: 'aaa',
     unitValue: 1.5,
     amount: 12 };
 
 export const service2: OfferService = {
+    idSeller:"1",
     idService: 2,
     description: 'bbb',
     unitValue: 2,
     amount: 24};
 
 export const service3: OfferService = {
+    idSeller:"1",
     idService: 3,
     description: 'ccc',
     unitValue: 5,
