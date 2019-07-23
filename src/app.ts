@@ -22,6 +22,8 @@ const setMiddlewares = (app: Application): Application => {
 const setConfigurations = R.pipe(setMiddlewares, setRoutes );
 
 const setUpMongo = (): void => {
-    mongoose.connect(MONGO_URI, { useNewUrlParser: true });
+    mongoose.connect(MONGO_URI, { useNewUrlParser: true },(err)=>{
+        console.log(err);
+    });
     mongoose.set('useCreateIndex', true);
 };

@@ -8,7 +8,13 @@ import {
 } from '../operations/DB/communication.operation';
 import { findSaleById, updateSaleByID } from '../operations/DB/sale.operation';
 
+import path from 'path';
+
+
+
+
 export const createPDF = async (quotation: Quotation, company: Company[], quotations: Quotation): Promise<Mail> => {
+    const tmpRoute = path.join(__dirname,'tmp', 'cotizacion.pdf');
     const emailE: string = company[1].mail;
     const email: Mail = {
         from: "",
@@ -17,7 +23,7 @@ export const createPDF = async (quotation: Quotation, company: Company[], quotat
         html: '<h1>Envio la cotizacion adjunta, espero su respuesta</h1>',
         attachments: [{
             filename: 'cotizacion.pdf',
-            path: 'G:/ARQUITECTURA/3er Parcial/Sales_Module/tmp/cotizacion.pdf',
+            path: tmpRoute,
             contentType: 'application/pdf'
         }],
     }
