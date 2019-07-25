@@ -60,8 +60,8 @@ export const getQuotationsBySaleCtrl = async (req: Request, res: Response) => {
         return;
     }
 
-    const sortQuotation = sortQuotationByDate(sale.quotations);
-    res.status(200).json(sortQuotation);
+    const quotations = sortQuotationByDate(sale.quotations);
+    res.status(200).json({quotations});
 };
 
 export const getSaleQuotationById = async (req: Request, res: Response) => {
